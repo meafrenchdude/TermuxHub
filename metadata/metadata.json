@@ -121,87 +121,71 @@
       "author": "chrizator",
       "requireRoot": false,
       "publishedAt": "13-12-2025"
-    }
-
+    },
     {
-      "id": "0056",
-      "name": "netattack2",
-      "description": "An advanced network scan and attack script based on GUI. 2nd version of no-GUI netattack.",
-      "category": "Hacking",
-      "install": "git clone https://github.com/chrizator/netattack2
-                  cd netattack2
-                  python3 netattack2.py",
-      "version": "1.0",
-      "thumbnail": "",
-      "repo": "https://github.com/chrizator/netattack2",
-      "author": "chrizator",
-      "requireRoot": false,
-      "publishedAt": "09-01-2026"
-    }
-
-    {
-      "id": "0057",
-      "name": "AUXILE",
-      "description": "A tool to check the security of your website or to collect information about a website.",
-      "category": "Security",
-      "install": "git clone https://github.com/jsonluca/AUXILE.git
-                  cd AUXILE
-                  python3 Auxile.py",
-      "version": "1.0",
-      "thumbnail": "",
-      "repo": "https://github.com/jsonluca/AUXILE",
-      "author": "jsonluca",
-      "requireRoot": false,
-      "publishedAt": "09-01-2026"
-    }
-
-    {
-      "id": "0058",
-      "name": "hash-generator",
-      "description": "Generate more than 39 type of hashes.",
-      "category": "Hash Generator",
-      "install": "git clone https://github.com/jsonluca/hash-generator
-                  cd hash-generator
-                  python3 hashgen.py",
-      "version": "1.0",
-      "thumbnail": "",
-      "repo": "https://github.com/jsonluca/hash-generator",
-      "author": "jsonluca",
-      "requireRoot": false,
-      "publishedAt": "09-01-2026"
-    }
-
-    {
-      "id": "0059",
-      "name": "hasher",
-      "description": "Hash cracker with auto detect hash.",
-      "category": "Hash Cracker",
-      "install": "git clone https://github.com/jsonluca/hasher
-                  cd hasher
-                  python3 hash.py",
-      "version": "1.0",
-      "thumbnail": "",
-      "repo": "https://github.com/jsonluca/hasher",
-      "author": "jsonluca",
-      "requireRoot": false,
-      "publishedAt": "09-01-2026"
-    }
-
-    {
-      "id": "0060",
-      "name": "ko-dork",
-      "description": "A simple vuln web scanner.",
-      "category": "Security",
-      "install": "git clone https://github.com/jsonluca/ko-dork
-                  cd ko-dork
-                  python3 dork.py",
-      "version": "1.0",
-      "thumbnail": "",
-      "repo": "https://github.com/jsonluca/ko-dork",
-      "author": "jsonluca",
-      "requireRoot": false,
-      "publishedAt": "09-01-2026"
-    }
-
-  ]
+    "id": "0056",
+    "name": "netattack2",
+    "description": "An advanced network scan and attack script based on GUI. 2nd version of no-GUI netattack.",
+    "category": "Network Security",
+    "install": "git clone https://github.com/chrizator/netattack2\ncd netattack2\npython3 netattack2.py",
+    "version": "1.0",
+    "thumbnail": "",
+    "repo": "https://github.com/chrizator/netattack2",
+    "author": "chrizator",
+    "requireRoot": false,
+    "publishedAt": "09-01-2026"
+  },
+  {
+    "id": "0057",
+    "name": "AUXILE",
+    "description": "A tool to check the security of your website or to collect information about a website.",
+    "category": "Web Security",
+    "install": "git clone https://github.com/jsonluca/AUXILE.git\ncd AUXILE\npython3 Auxile.py",
+    "version": "1.0",
+    "thumbnail": "",
+    "repo": "https://github.com/jsonluca/AUXILE",
+    "author": "jsonluca",
+    "requireRoot": false,
+    "publishedAt": "09-01-2026"
+  },
+  {
+    "id": "0058",
+    "name": "hash-generator",
+    "description": "Generate more than 39 type of hashes.",
+    "category": "Cryptography Tools",
+    "install": "git clone https://github.com/jsonluca/hash-generator\ncd hash-generator\npython3 hashgen.py",
+    "version": "1.0",
+    "thumbnail": "",
+    "repo": "https://github.com/jsonluca/hash-generator",
+    "author": "jsonluca",
+    "requireRoot": false,
+    "publishedAt": "09-01-2026"
+  },
+  {
+    "id": "0059",
+    "name": "hasher",
+    "description": "Hash cracker with auto detect hash.",
+    "category": "Brute Force",
+    "install": "git clone https://github.com/jsonluca/hasher\ncd hasher\npython3 hash.py",
+    "version": "1.0",
+    "thumbnail": "",
+    "repo": "https://github.com/jsonluca/hasher",
+    "author": "jsonluca",
+    "requireRoot": false,
+    "publishedAt": "09-01-2026"
+  },
+  {
+    "id": "0060",
+    "name": "ko-dork",
+    "description": "A simple vuln web scanner.",
+    "category": "Web Security",
+    "install": "git clone https://github.com/jsonluca/ko-dork\ncd ko-dork\npython3 dork.py",
+    "version": "1.0",
+    "thumbnail": "",
+    "repo": "https://github.com/jsonluca/ko-dork",
+    "author": "jsonluca",
+    "requireRoot": false,
+    "publishedAt": "09-01-2026"
+  }
+ ]
 }
