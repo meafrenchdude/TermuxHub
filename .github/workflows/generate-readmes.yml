@@ -1,0 +1,39 @@
+name: Generate Missing Tool READMEs
+
+on:
+  schedule:
+    - cron: "0 0 * * *" 
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Generate READMEs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node .github/scripts/generate-readmes.js
+
+      - name: Commit & push changes
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git config user.name "termuxhub-bot"
+            git config user.email "bot@termuxhub.dev"
+            git add metadata/readme
+            git commit -m "chore: auto-generate missing tool READMEs"
+            git push
+          else
+            echo "No README files generated"
+          fi

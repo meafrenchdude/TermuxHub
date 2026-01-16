@@ -1,0 +1,38 @@
+name: Generate stars.json
+
+on:
+  schedule:
+    - cron: "0 0 * * *" 
+  workflow_dispatch:      
+
+jobs:
+  generate-stars:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Generate stars.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          node .github/scripts/generate-stars.js
+
+      - name: Commit & push if changed
+        run: |
+          git config user.name "termuxhub-bot"
+          git config user.email "bot@termuxhub.dev"
+
+          if git diff --quiet; then
+            echo "No changes in stars.json"
+          else
+            git add metadata/stars.json
+            git commit -m "chore: update stars.json"
+            git push
+          fi
