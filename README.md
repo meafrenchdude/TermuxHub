@@ -1,7 +1,7 @@
 <h1 align="center">TermuxHub</h1>
 
 <p align="center">
-Metadata-driven Android application for indexing Termux-related tools.<br/>
+Android application that indexes Termux tools using metadata.<br/>
 </p>
 
 ## How It Works
