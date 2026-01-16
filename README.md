@@ -2,7 +2,6 @@
 
 <p align="center">
 Metadata-driven Android application for indexing Termux-related tools.<br/>
-Read-only. Deterministic. Offline-resilient.
 </p>
 
 ## How It Works
