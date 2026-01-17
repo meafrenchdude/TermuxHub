@@ -1,43 +1,55 @@
 <p align="center">
-Android application that indexes Termux tools using metadata.<br/>
+  Android application that indexes Termux tools using metadata.
 </p>
 
-## How It Works
+<p>
+  Termux Hub is a lightweight, metadata-driven Android app that catalogs
+  Termux-related tools using a transparent and reproducible data pipeline.
+</p>
 
-- Fetches static metadata from GitHub
-- Resolves tools, stars, and markdown independently
-- Persists validated data into local Room database
-- Local database is the source of truth after sync
-- Falls back to cached or bundled data on failure
-- **Stars and tool README update automatically at 00:00 UTC**
+<h2>How it works</h2>
 
+<ul>
+  <li>Fetches static metadata from GitHub</li>
+  <li>Processes tools, star counts, and READMEs independently</li>
+  <li>Stores validated data in a local Room database</li>
+  <li>Uses the local database as the source of truth after sync</li>
+  <li>Falls back to cached or bundled data if syncing fails</li>
+  <li><strong>Stars and tool READMEs update daily at 00:00 UTC</strong></li>
+</ul>
 
-## Data Sources
+<h2>Data sources</h2>
 
-All data is **read-only** and sourced from:
-https://github.com/maazm7d/TermuxHub
+<p>
+  All data is <strong>read-only</strong> and sourced exclusively from:
+</p>
 
-Consumed files:
+<p>
+  <a href="https://github.com/maazm7d/TermuxHub">
+    https://github.com/maazm7d/TermuxHub
+  </a>
+</p>
 
-### Tools
-- Metadata index  
-  `https://github.com/maazm7d/TermuxHub/blob/main/metadata/metadata.json`
-- Star counts  
-  `https://github.com/maazm7d/TermuxHub/blob/main/metadata/stars.json`
-- Tool README  
-  `https://github.com/maazm7d/TermuxHub/blob/main/metadata/readme/<tool.id>.md`
-- Thumbnails  
-  `https://github.com/maazm7d/TermuxHub/blob/main/metadata/thumbnail/<tool.id>.webp`
+<p>Consumed resources include:</p>
 
-### Hall of Fame
-- Index  
-  `https://github.com/maazm7d/TermuxHub/blob/main/metadata/halloffame/index.json`
-- Member markdown  
-  `https://github.com/maazm7d/TermuxHub/blob/main/metadata/halloffame/<member.id>.md`
+<ul>
+  <li>Tool metadata index</li>
+  <li>GitHub star counts</li>
+  <li>Tool README files</li>
+  <li>Tool thumbnails</li>
+  <li>Hall of Fame index and entries</li>
+</ul>
 
+<p>
+  No other external sources are accessed.
+</p>
 
-Only these resources are consumed.
+<h2>Contributing</h2>
 
-## Contributing & Indexing Your Own Tool
-
-See: [CONTRIBUTING.md](CONTRIBUTING.md)
+<p>
+  To add or index your own tool, see:
+  <br/>
+  <a href="https://github.com/maazm7d/TermuxHub/blob/main/CONTRIBUTING.md">
+    CONTRIBUTING.md
+  </a>
+</p>
