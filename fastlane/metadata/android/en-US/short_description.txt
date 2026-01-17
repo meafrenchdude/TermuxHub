@@ -1,1 +1,1 @@
-A lightweight Android app that indexes Termux tools from GitHub metadata, stores validated data locally, and stays up to date with automatic daily syncs.
+A lightweight Android app that indexes Termux tools from GitHub metadata.
