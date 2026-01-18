@@ -6,6 +6,7 @@ const METADATA_PATH = "metadata/metadata.json";
 const STARS_PATH = "metadata/stars.json";
 const README_DIR = "metadata/readme";
 
+const README_SIZE_LIMIT = 100 * 1024; // 100 KB
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
 if (!GITHUB_TOKEN) {
@@ -60,7 +61,7 @@ function githubRequest(pathname) {
           if (res.statusCode >= 200 && res.statusCode < 300) {
             resolve(JSON.parse(data));
           } else {
-            reject(new Error(`GitHub API ${res.statusCode}: ${data}`));
+            reject(new Error(`GitHub API ${res.statusCode}`));
           }
         });
       }
@@ -86,28 +87,79 @@ function formatDate(iso) {
   }).format(new Date(iso));
 }
 
-function generateReadme({ stars, forks, license, updated, maintained }) {
+
+function rewriteRelativeUrls(markdown, { owner, repo, branch }) {
+  // Images
+  markdown = markdown.replace(
+    /!\[([^\]]*)\]\((?!https?:\/\/)([^)]+)\)/g,
+    `![$1](https://raw.githubusercontent.com/${owner}/${repo}/${branch}/$2)`
+  );
+
+  // Links
+  markdown = markdown.replace(
+    /\[([^\]]+)\]\((?!https?:\/\/)([^)]+)\)/g,
+    `[$1](https://github.com/${owner}/${repo}/blob/${branch}/$2)`
+  );
+
+  return markdown;
+}
+
+function truncateReadme(content) {
+  if (Buffer.byteLength(content, "utf-8") <= README_SIZE_LIMIT) {
+    return content;
+  }
+
+  let truncated = content.slice(0, README_SIZE_LIMIT);
+  truncated = truncated.slice(0, truncated.lastIndexOf("\n"));
+
+  return `${truncated}
+
+---
+
+> ⚠️ **README truncated by Termux Hub**  
+> The original README exceeds the supported size limit.
+`;
+}
+
+async function fetchRepoReadme({ owner, repo, branch }) {
+  try {
+    const readme = await githubRequest(
+      `/repos/${owner}/${repo}/readme`
+    );
+
+    let content = Buffer
+      .from(readme.content, "base64")
+      .toString("utf-8");
+
+    content = rewriteRelativeUrls(content, { owner, repo, branch });
+    content = truncateReadme(content);
+
+    return content;
+  } catch {
+    return null;
+  }
+}
+
+
+function generateFooter({ stars, forks, license, updated, maintained }) {
   return `
 ---
 
-- **Stars:** ${stars}
-- **Forks:** ${forks}
-- **License:** ${license}
-- **Maintained:** ${maintained}
-- **Last updated:** ${updated}
+## 📦 Repository Info (Termux Hub)
+
+- ⭐ **Stars:** ${stars}
+- 🍴 **Forks:** ${forks}
+- 📄 **License:** ${license}
+- 🛠 **Maintained:** ${maintained}
+- 🔄 **Last updated:** ${updated}
 
 ---
 
-> *This repository is indexed by **Termux Hub** for legitimate *educational* and authorized security *research* purposes only.*  
-> **Termux Hub** does not *host*, *modify*, or *endorse* third-party projects.*
-
----
-
-<sub>
-This README is automatically generated and continuously refreshed by Termux Hub.
-</sub>
+> Indexed by **Termux Hub** for legitimate educational and authorized research purposes.  
+> Termux Hub does not host, modify, or endorse third-party projects.
 `;
 }
+
 
 function writeSummary({ processed, updated, skipped }) {
   const summaryPath = process.env.GITHUB_STEP_SUMMARY;
@@ -115,22 +167,24 @@ function writeSummary({ processed, updated, skipped }) {
 
   const now = formatDate(new Date().toISOString());
 
-  const summary = `
-## TermuxHub – README Generation Summary
+  fs.appendFileSync(
+    summaryPath,
+    `
+## TermuxHub – README Sync Summary
 
 | Metric | Count |
 |------|------:|
 | Tools processed | ${processed} |
-| READMEs generated | ${updated} |
+| READMEs written | ${updated} |
 | Skipped | ${skipped} |
 
 **Run time:** ${now}
 
 ---
-`;
-
-  fs.appendFileSync(summaryPath, summary);
+`
+  );
 }
+
 
 async function main() {
   const metadata = readJson(METADATA_PATH);
@@ -138,16 +192,16 @@ async function main() {
 
   ensureDir(README_DIR);
 
-  let processedCount = 0;
-  let updatedCount = 0;
-  let skippedCount = 0;
+  let processed = 0;
+  let updated = 0;
+  let skipped = 0;
 
   for (const tool of metadata.tools) {
-    processedCount++;
+    processed++;
 
     const repoInfo = parseRepo(tool.repo);
     if (!repoInfo) {
-      skippedCount++;
+      skipped++;
       continue;
     }
 
@@ -157,9 +211,11 @@ async function main() {
         `/repos/${repoInfo.owner}/${repoInfo.repo}`
       );
     } catch {
-      skippedCount++;
+      skipped++;
       continue;
     }
+
+    const branch = repoData.default_branch || "main";
 
     const stars =
       starsJson[tool.repo]?.stars ??
@@ -174,28 +230,39 @@ async function main() {
         ? repoData.license.spdx_id
         : "No license";
 
-    const updated = formatDate(repoData.pushed_at);
-
+    const updatedAt = formatDate(repoData.pushed_at);
     const maintained = repoData.archived ? "No (Archived)" : "Yes";
 
-    const readmePath = path.join(README_DIR, `${tool.id}.md`);
-    const content = generateReadme({
+    const upstreamReadme = await fetchRepoReadme({
+      owner: repoInfo.owner,
+      repo: repoInfo.repo,
+      branch
+    });
+
+    let finalReadme = upstreamReadme
+      ? upstreamReadme
+      : `# ${repoInfo.repo}
+
+> No README found in the upstream repository.
+`;
+
+    finalReadme += generateFooter({
       stars,
       forks,
       license,
-      updated,
+      updated: updatedAt,
       maintained
     });
 
-    fs.writeFileSync(readmePath, content);
-    updatedCount++;
+    fs.writeFileSync(
+      path.join(README_DIR, `${tool.id}.md`),
+      finalReadme
+    );
+
+    updated++;
   }
 
-  writeSummary({
-    processed: processedCount,
-    updated: updatedCount,
-    skipped: skippedCount
-  });
+  writeSummary({ processed, updated, skipped });
 }
 
 main().catch(() => process.exit(1));
