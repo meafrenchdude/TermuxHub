@@ -4,6 +4,15 @@
 Android application that indexes Termux tools using metadata.<br/>
 </p>
 
+<p align="center">
+  <a href="https://github.com/maazm7d/TermuxHub/releases/latest/download/app-release.apk">
+    <img src="https://raw.githubusercontent.com/NeoApplications/Neo-Backup/034b226cea5c1b30eb4f6a6f313e4dadcbb0ece4/badge_github.png" alt="Get it on GitHub" height="80"/>
+  </a>
+  <a href="https://f-droid.org/packages/com.maazm7d.termuxhub/">
+    <img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="80"/>
+  </a>
+</p>
+
 ## How It Works
 
 - Fetches static metadata from GitHub
