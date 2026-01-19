@@ -1,40 +1,120 @@
-# Contributing
+<div align="center">
 
-Contributions are accepted only if they respect data integrity and architectural boundaries.
+# Contributing to TermuxHub
 
-Anything else is rejected.
+This contribution guide is **strict, concise, and enforced**.  
+Pull requests that do not follow these rules **will be closed without exception**.
 
-
-## Acceptable Changes
-
-- Adding new tools via metadata
-- UI polish that does not affect data flow
-- Metadata sync correctness
-- Repository logic fixes
-- Performance improvements
+</div>
 
 
-## Rules
+---
 
-- Domain layer is Android-free
-- DTOs stay in the data layer
-- Room entities are persistence-only
-- Repositories control sync behavior
-- Local-only state remains local-only
-- No partial writes or silent failures
+## Adding a New Tool
 
-Break a rule. PR closed.
+### Step 1: Edit `metadata/metadata.json`
 
+Add your tool entry to the metadata file.
 
-## Commits
+#### Field Rules (Strict)
 
-- One concern per commit
-- No mixed refactors
-- Messages explain intent
+| Field         | Rule |
+|---------------|------|
+| `id`          | Unique, immutable, and used everywhere |
+| `name`        | Tool name only (no emojis, versions, or extras) |
+| `description` | One clear and concise sentence |
+| `category`    | Must match **one** allowed category exactly |
+| `install`     | Termux-compatible shell commands (`\n` allowed) |
+| `thumbnail`   | Leave empty |
+| `repo`        | GitHub HTTPS URL only (no trailing slash) |
+| `author`      | GitHub username or organization (no URL) |
+| `requireRoot` | `true` or `false` |
+| `publishedAt` | Format: `DD-MM-YYYY` |
 
+#### Allowed Categories
 
-## Pull Requests
+- OSINT & Recon  
+- Web Security  
+- Network Security  
+- Exploitation Tools  
+- Brute Force  
+- Social Engineering  
+- Android Security  
+- Cryptography Tools  
+- Privacy & Anonymity  
+- Utilities & Dev  
 
-State what changed, why it exists, and what data it touches.
+---
 
-That is all.
+### Step 2: Add Thumbnail (Mandatory)
+
+Thumbnail is **required** for every tool.
+
+**Path**
+`metadata/thumbnail/<tool.id>.webp`
+
+#### Thumbnail Rules
+
+- Format: **WEBP only**
+- Aspect Ratio: **16:9**
+- Filename **must exactly match** `tool.id`
+- Missing thumbnail = **PR rejected**
+
+---
+
+## Stars and READMEs (Auto-Generated)
+
+The following files are **automatically managed**:
+
+- `metadata/stars.json`  
+  - Updated daily at **00:00 UTC**
+- `metadata/readme/{tool.id}.md`  
+  - Fetched directly from upstream GitHub repositories
+
+**Do NOT edit these files in pull requests.**
+
+---
+
+## Hall of Fame
+
+- Contributors **cannot add themselves**
+- Entries are added **only by owners or maintainers**
+- Self-add pull requests are **closed immediately**
+
+---
+
+## App Source Contributions
+
+- Small, focused pull requests are welcome
+- Every merge commit **must clearly explain**:
+  - What changed
+  - Why it changed
+
+---
+
+## Commit Message Rules (Enforced)
+
+### Format: 
+
+### Allowed Prefixes
+
+- `metadata.json:` — single metadata file change
+- `metadata:` — multiple metadata files
+- `{file name}:` — single app source file
+- `app:` — application source code changes
+
+**Unclear or incorrect commit titles will result in PR rejection.**
+
+---
+
+## Pull Requests Will Be Closed If
+
+- Metadata format is incorrect
+- Thumbnail rules are violated
+- Auto-generated files are edited
+- Commit messages are unclear
+- Changes are unrelated or unexplained
+
+---
+
+> Quality, structure, and clarity matter more than quantity.
