@@ -9,18 +9,48 @@ const README_DIR = "metadata/readme";
 const README_SIZE_LIMIT = 100 * 1024; // 100 KB
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
+function logInfo(msg) {
+  console.log(`ℹ️  ${msg}`);
+}
+
+function logWarn(msg) {
+  console.warn(`⚠️  ${msg}`);
+}
+
+function logError(msg, err) {
+  console.error(`❌ ${msg}`);
+  if (err) {
+    console.error(err.stack || err.message || err);
+  }
+}
+
+process.on("unhandledRejection", err => {
+  logError("Unhandled promise rejection", err);
+  process.exit(1);
+});
+
+process.on("uncaughtException", err => {
+  logError("Uncaught exception", err);
+  process.exit(1);
+});
+
 if (!GITHUB_TOKEN) {
-  console.error("GITHUB_TOKEN is required");
+  logError("GITHUB_TOKEN is required but not set");
   process.exit(1);
 }
 
+
 function readJson(file) {
+  if (!fs.existsSync(file)) {
+    throw new Error(`Missing file: ${file}`);
+  }
   return JSON.parse(fs.readFileSync(file, "utf-8"));
 }
 
 function ensureDir(dir) {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
+    logInfo(`Created directory: ${dir}`);
   }
 }
 
@@ -59,9 +89,17 @@ function githubRequest(pathname) {
         res.on("data", c => (data += c));
         res.on("end", () => {
           if (res.statusCode >= 200 && res.statusCode < 300) {
-            resolve(JSON.parse(data));
+            try {
+              resolve(JSON.parse(data));
+            } catch {
+              reject(new Error(`Invalid JSON from GitHub: ${pathname}`));
+            }
           } else {
-            reject(new Error(`GitHub API ${res.statusCode}`));
+            reject(
+              new Error(
+                `GitHub API ${res.statusCode} ${pathname}\n${data}`
+              )
+            );
           }
         });
       }
@@ -72,30 +110,12 @@ function githubRequest(pathname) {
   });
 }
 
-function formatDate(iso) {
-  if (!iso) return "Unknown";
-
-  return new Intl.DateTimeFormat(undefined, {
-    year: "numeric",
-    month: "short",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: true,
-    timeZoneName: "short"
-  }).format(new Date(iso));
-}
-
-
 function rewriteRelativeUrls(markdown, { owner, repo, branch }) {
-  // Images
   markdown = markdown.replace(
     /!\[([^\]]*)\]\((?!https?:\/\/)([^)]+)\)/g,
     `![$1](https://raw.githubusercontent.com/${owner}/${repo}/${branch}/$2)`
   );
 
-  // Links
   markdown = markdown.replace(
     /\[([^\]]+)\]\((?!https?:\/\/)([^)]+)\)/g,
     `[$1](https://github.com/${owner}/${repo}/blob/${branch}/$2)`
@@ -111,6 +131,8 @@ function truncateReadme(content) {
 
   let truncated = content.slice(0, README_SIZE_LIMIT);
   truncated = truncated.slice(0, truncated.lastIndexOf("\n"));
+
+  logWarn("README truncated due to size limit");
 
   return `${truncated}
 
@@ -135,11 +157,26 @@ async function fetchRepoReadme({ owner, repo, branch }) {
     content = truncateReadme(content);
 
     return content;
-  } catch {
+  } catch (err) {
+    logWarn(`README fetch failed for ${owner}/${repo}: ${err.message}`);
     return null;
   }
 }
 
+function formatDate(iso) {
+  if (!iso) return "Unknown";
+
+  return new Intl.DateTimeFormat(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+    timeZoneName: "short"
+  }).format(new Date(iso));
+}
 
 function generateFooter({ stars, forks, license, updated, maintained }) {
   return `
@@ -155,17 +192,13 @@ function generateFooter({ stars, forks, license, updated, maintained }) {
 
 ---
 
-> Indexed by **Termux Hub** for legitimate educational and authorized research purposes.  
-> Termux Hub does not host, modify, or endorse third-party projects.
+> Indexed by **Termux Hub** for legitimate educational and authorized research purposes.
 `;
 }
-
 
 function writeSummary({ processed, updated, skipped }) {
   const summaryPath = process.env.GITHUB_STEP_SUMMARY;
   if (!summaryPath) return;
-
-  const now = formatDate(new Date().toISOString());
 
   fs.appendFileSync(
     summaryPath,
@@ -178,15 +211,16 @@ function writeSummary({ processed, updated, skipped }) {
 | READMEs written | ${updated} |
 | Skipped | ${skipped} |
 
-**Run time:** ${now}
+**Run time:** ${formatDate(new Date().toISOString())}
 
 ---
 `
   );
 }
 
-
 async function main() {
+  logInfo("Starting README generation");
+
   const metadata = readJson(METADATA_PATH);
   const starsJson = readJson(STARS_PATH);
 
@@ -202,6 +236,7 @@ async function main() {
     const repoInfo = parseRepo(tool.repo);
     if (!repoInfo) {
       skipped++;
+      logWarn(`Invalid repo for tool: ${tool.id}`);
       continue;
     }
 
@@ -210,8 +245,11 @@ async function main() {
       repoData = await githubRequest(
         `/repos/${repoInfo.owner}/${repoInfo.repo}`
       );
-    } catch {
+    } catch (err) {
       skipped++;
+      logWarn(
+        `Repo fetch failed (${tool.id}): ${err.message}`
+      );
       continue;
     }
 
@@ -263,6 +301,10 @@ async function main() {
   }
 
   writeSummary({ processed, updated, skipped });
+  logInfo("README generation finished");
 }
 
-main().catch(() => process.exit(1));
+main().catch(err => {
+  logError("Fatal error during execution", err);
+  process.exit(1);
+});
