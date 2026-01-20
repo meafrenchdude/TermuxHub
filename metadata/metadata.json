@@ -731,6 +731,66 @@
       "author": "moayad-star",
       "requireRoot": false,
       "publishedAt": "20-01-2026"
+    },
+    {
+      "id": "0062",
+      "name": "grabcam",
+      "description": "A tool to hack camera using phishing page from termux",
+      "category": "Social Engineering",
+      "install": "git clone https://github.com/noob-hackers/grabcam\ncd grabcam\nbash grabcam.sh",
+      "thumbnail": "",
+      "repo": "https://github.com/noob-hackers/grabcam",
+      "author": "noob-hackers",
+      "requireRoot": false,
+      "publishedAt": "20-01-2026"
+    },
+    {
+      "id": "0063",
+      "name": "CamHack",
+      "description": "Hack Rear Camera by sending a link",
+      "category": "Social Engineering",
+      "install": "git clone https://github.com/Devil-Tigers/CamHack.git\ncd CamHack\nchmod +x *\nbash CamHack.sh",
+      "thumbnail": "",
+      "repo": "https://github.com/Devil-Tigers/CamHack",
+      "author": "Devil-Tigers",
+      "requireRoot": false,
+      "publishedAt": "20-01-2026"
+    },
+    {
+      "id": "0064",
+      "name": "pyshell",
+      "description": "Simple Remote Access Trojan Tool.",
+      "category": "Exploitation Tools",
+      "install": "git clone https://github.com/khalednassar702/Pyshell\ncd Pyshell\n./Pyshell",
+      "thumbnail": "",
+      "repo": "https://github.com/MindPatch/pyshell",
+      "author": "MindPatch",
+      "requireRoot": false,
+      "publishedAt": "20-01-2026"
+    },
+    {
+      "id": "0065",
+      "name": "WishFish",
+      "description": "Powerful Tool to Grab Front Camera Snaps Using A Link.",
+      "category": "Social Engineering",
+      "install": "git clone https://github.com/kinghacker0/WishFish\ncd WishFish && bash wishfish.sh",
+      "thumbnail": "",
+      "repo": "https://github.com/kinghacker0/WishFish",
+      "author": "kinghacker0",
+      "requireRoot": false,
+      "publishedAt": "20-01-2026"
+    },
+    {
+      "id": "0066",
+      "name": "Debinject",
+      "description": "Inject malicious code into *.debs",
+      "category": "Exploitation Tools",
+      "install": "git clone https://github.com/UndeadSec/Debinject.git\ncd Debinject\npython debinject.py",
+      "thumbnail": "",
+      "repo": "https://github.com/UndeadSec/Debinject",
+      "author": "UndeadSec",
+      "requireRoot": false,
+      "publishedAt": "20-01-2026"
     }
   ]
 }
