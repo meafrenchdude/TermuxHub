@@ -802,7 +802,7 @@
       "repo": "https://github.com/mishakorzik/Infect",
       "author": "mishakorzik",
       "requireRoot": false,
-      "publishedAt": "20-01-2020"
+      "publishedAt": "20-01-2026"
     },
     {
       "id": "0068",
@@ -814,7 +814,7 @@
       "repo": "https://github.com/IAmBlackHacker/Facebook-BruteForce",
       "author": "IAmBlackHacker",
       "requireRoot": false,
-      "publishedAt": "20-01-2017"
+      "publishedAt": "20-01-2026"
     },
     {
       "id": "0069",
@@ -826,7 +826,7 @@
       "repo": "https://github.com/sherlock-project/sherlock",
       "author": "sherlock-project",
       "requireRoot": false,
-      "publishedAt": "20-01-2018"
+      "publishedAt": "20-01-2026"
     },
     {
       "id": "0070",
@@ -838,7 +838,7 @@
       "repo": "https://github.com/mishakorzik/UserFinder",
       "author": "mishakorzik",
       "requireRoot": false,
-      "publishedAt": "20-01-2019"
+      "publishedAt": "20-01-2026"
     }
   ]
 }
