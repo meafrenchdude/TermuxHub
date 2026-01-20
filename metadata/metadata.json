@@ -839,6 +839,126 @@
       "author": "mishakorzik",
       "requireRoot": false,
       "publishedAt": "20-01-2026"
+    },
+    {
+      "id": "0071",
+      "name": "rang3r",
+      "description": "A multi-threaded IP and port scanner for identifying live hosts and common vulnerable ports.",
+      "category": "Network Security",
+      "install": "git clone https://github.com/floriankunushevci/rang3r\ncd rang3r\npython2 rang3r.py --help",
+      "thumbnail": "",
+      "repo": "https://github.com/floriankunushevci/rang3r",
+      "author": "floriankunushevci",
+      "requireRoot": false,
+      "publishedAt": "20-01-2026"
+    },
+    {
+      "id": "0072",
+      "name": "TM-scanner",
+      "description": "A simple Python-based scanner for detecting common vulnerabilities in websites.",
+      "category": "Web Security",
+      "install": "apt update && apt upgrade -y\napt install git python2 -y\ngit clone https://github.com/TechnicalMujeeb/TM-scanner\ncd TM-scanner\nchmod +x *\nsh install.sh",
+      "thumbnail": "",
+      "repo": "https://github.com/TechnicalMujeeb/TM-scanner",
+      "author": "TechnicalMujeeb",
+      "requireRoot": false,
+      "publishedAt": "20-01-2026"
+    },
+    {
+      "id": "0073",
+      "name": "darkdump",
+      "description": "An OSINT tool for scraping and analyzing deep web content via Tor and Ahmia search results.",
+      "category": "OSINT & Recon",
+      "install": "git clone https://github.com/josh0xA/darkdump\ncd darkdump\npython3 -m pip install -r requirements.txt\npython3 darkdump.py --help",
+      "thumbnail": "",
+      "repo": "https://github.com/josh0xA/darkdump",
+      "author": "josh0xA",
+      "requireRoot": false,
+      "publishedAt": "20-01-2026"
+    },
+    {
+      "id": "0074",
+      "name": "ShellPhish",
+      "description": "A phishing framework with multiple site templates and built-in Termux setup support.",
+      "category": "Social Engineering",
+      "install": "apt update && apt upgrade -y\napt install git wget php unzip curl -y\ngit clone https://github.com/AbirHasan2005/ShellPhish\ncd ShellPhish\nchmod +x *\nbash shellphish.sh",
+      "thumbnail": "",
+      "repo": "https://github.com/AbirHasan2005/ShellPhish",
+      "author": "AbirHasan2005",
+      "requireRoot": false,
+      "publishedAt": "20-01-2026"
+    },
+    {
+      "id": "0075",
+      "name": "saycheese",
+      "description": "A social engineering tool that captures webcam images by luring targets to a malicious link.",
+      "category": "Social Engineering",
+      "install": "git clone https://github.com/hangetzzu/saycheese\ncd saycheese\nbash saycheese.sh",
+      "thumbnail": "",
+      "repo": "https://github.com/hangetzzu/saycheese",
+      "author": "hangetzzu",
+      "requireRoot": false,
+      "publishedAt": "20-01-2026"
+    },
+    {
+      "id": "0076",
+      "name": "AIOPhish",
+      "description": "An all-in-one phishing toolkit supporting multiple attack modules and Termux installation.",
+      "category": "Social Engineering",
+      "install": "apt update && apt upgrade -y\napt install git -y\ngit clone https://github.com/DeepSociety/AIOPhish\ncd AIOPhish\nbash install-termux.sh\nbash aiophish.sh",
+      "thumbnail": "",
+      "repo": "https://github.com/DeepSociety/AIOPhish",
+      "author": "DeepSociety",
+      "requireRoot": false,
+      "publishedAt": "20-01-2026"
+    },
+    {
+      "id": "0077",
+      "name": "I-See-You",
+      "description": "A bash-based geolocation tool that captures exact user location during phishing engagements.",
+      "category": "OSINT & Recon",
+      "install": "git clone https://github.com/Viralmaniar/I-See-You\ncd I-See-You\nchmod u+x ISeeYou.sh\n./ISeeYou.sh",
+      "thumbnail": "",
+      "repo": "https://github.com/Viralmaniar/I-See-You",
+      "author": "Viralmaniar",
+      "requireRoot": false,
+      "publishedAt": "20-01-2026"
+    },
+    {
+      "id": "0078",
+      "name": "hasherdotid",
+      "description": "A tool to find or decrypt encrypted text using various methods.",
+      "category": "Cryptography Tools",
+      "install": "git clone https://github.com/galauerscrew/hasherdotid\ncd hasherdotid\nchmod +x hasherdotid.py\n./hasherdotid.py",
+      "thumbnail": "",
+      "repo": "https://github.com/galauerscrew/hasherdotid",
+      "author": "galauerscrew",
+      "requireRoot": false,
+      "publishedAt": "20-12-2026"
+    },
+    {
+      "id": "0079",
+      "name": "Hash-Buster",
+      "description": "A tool that automatically identifies and cracks cryptographic hashes using online lookup services.",
+      "category": "Cryptography Tools",
+      "install": "git clone https://github.com/s0md3v/Hash-Buster\ncd Hash-Buster\npip install -r requirements.txt\nmake install",
+      "thumbnail": "",
+      "repo": "https://github.com/s0md3v/Hash-Buster",
+      "author": "s0md3v",
+      "requireRoot": false,
+      "publishedAt": "20-12-2026"
+    },
+    {
+      "id": "0080",
+      "name": "wlcreator",
+      "description": "A C-based wordlist generator that creates all possible password combinations based on selected character sets and length.",
+      "category": "Brute Force",
+      "install": "git clone https://github.com/Keshav2136/wlcreator\ncd wlcreator\ngcc -o wlcreator wlcreator.c\n./wlcreator 5",
+      "thumbnail": "",
+      "repo": "https://github.com/Keshav2136/wlcreator",
+      "author": "Keshav2136",
+      "requireRoot": false,
+      "publishedAt": "20-12-2026"
     }
   ]
 }
