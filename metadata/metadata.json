@@ -791,6 +791,54 @@
       "author": "UndeadSec",
       "requireRoot": false,
       "publishedAt": "20-01-2026"
+    },
+    {
+      "id": "0067",
+      "name": "Infect",
+      "description": "A Termux and Linux tool for generating simple malware payloads for educational use.",
+      "category": "Exploitation Tools",
+      "install": "git clone https://github.com/mishakorzik/Infect\ncd Infect\nbash install.sh",
+      "thumbnail": "",
+      "repo": "https://github.com/mishakorzik/Infect",
+      "author": "mishakorzik",
+      "requireRoot": false,
+      "publishedAt": "20-01-2020"
+    },
+    {
+      "id": "0068",
+      "name": "Facebook-BruteForce",
+      "description": "A Python-based tool that performs brute force login attempts against Facebook accounts.",
+      "category": "Brute Force",
+      "install": "git clone https://github.com/IAmBlackHacker/Facebook-BruteForce\ncd Facebook-BruteForce\npip install requests bs4 mechanize",
+      "thumbnail": "",
+      "repo": "https://github.com/IAmBlackHacker/Facebook-BruteForce",
+      "author": "IAmBlackHacker",
+      "requireRoot": false,
+      "publishedAt": "20-01-2017"
+    },
+    {
+      "id": "0069",
+      "name": "sherlock",
+      "description": "An OSINT tool that finds social media accounts associated with a username.",
+      "category": "OSINT & Recon",
+      "install": "pip install sherlock-project",
+      "thumbnail": "",
+      "repo": "https://github.com/sherlock-project/sherlock",
+      "author": "sherlock-project",
+      "requireRoot": false,
+      "publishedAt": "20-01-2018"
+    },
+    {
+      "id": "0070",
+      "name": "UserFinder",
+      "description": "A shell-based OSINT tool for discovering online profiles by username.",
+      "category": "OSINT & Recon",
+      "install": "git clone https://github.com/mishakorzik/UserFinder\ncd UserFinder\nbash UserFinder.sh",
+      "thumbnail": "",
+      "repo": "https://github.com/mishakorzik/UserFinder",
+      "author": "mishakorzik",
+      "requireRoot": false,
+      "publishedAt": "20-01-2019"
     }
   ]
 }
