@@ -13,15 +13,13 @@ Android application that indexes Termux tools using metadata.<br/>
   </a>
 </p>
 
-## How It Works
+<div align="center">
 
-- Fetches static metadata from GitHub
-- Resolves tools, stars, and markdown independently
-- Persists validated data into local Room database
-- Local database is the source of truth after sync
-- Falls back to cached or bundled data on failure
-- **Stars and tool README update automatically at 00:00 UTC**
+<small>
+<em>Termux Hub is a read-only index for discovery only and does not host, distribute, execute, or endorse any third-party tools; all use is at your own risk, and you are solely responsible for reviewing code, licenses, security, and legal compliance. This project is provided “AS IS”, with no warranties and no liability for any damage, security issues, or legal consequences.</em>
+</small>
 
+</div>
 
 ## Data Sources
 
