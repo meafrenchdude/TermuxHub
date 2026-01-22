@@ -4,33 +4,21 @@ import android.content.Context
 import android.content.Intent
 import com.maazm7d.termuxhub.domain.model.Tool
 
-object AppLinks {
-    const val FDROID_URL = "https://f-droid.org/packages/com.maazm7d.termuxhub"
-}
-
 object ToolShare {
 
     fun share(context: Context, tool: Tool) {
         val shareText = buildString {
-            appendLine("🔥 Check out this Termux tool!")
-            appendLine()
-            appendLine("🛠 Tool: ${tool.name}")
-
-            if (tool.description.isNotBlank()) {
-                appendLine("📄 ${tool.description}")
-            }
-
-            tool.repoUrl?.let {
-                appendLine()
-                appendLine("🔗 GitHub: $it")
-            }
+            appendLine("Tool name:")
+            appendLine(tool.name)
 
             appendLine()
-            appendLine("📦 Get the app on F-Droid:")
-            appendLine(AppLinks.FDROID_URL)
+            appendLine("Description:")
+            appendLine(tool.description)
 
             appendLine()
-            append("📱 Shared via TermuxHub")
+            appendLine()
+            appendLine("Open in Termux Hub:")
+            appendLine("https://maazm7d.github.io/termuxhub/tool/#${tool.id}")
         }
 
         val intent = Intent(Intent.ACTION_SEND).apply {

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -15,10 +16,21 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun TermuxHubAppNav() {
+fun TermuxHubAppNav(
+    deepLinkToolId: String?
+) {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination: NavDestination? = backStackEntry?.destination
+
+    LaunchedEffect(deepLinkToolId) {
+        if (!deepLinkToolId.isNullOrBlank()) {
+            navController.navigate("${Destinations.DETAILS}/$deepLinkToolId") {
+                popUpTo(Destinations.SPLASH) { inclusive = true }
+                launchSingleTop = true
+            }
+        }
+    }
 
     val showBottomBar = when (currentDestination?.route) {
         Destinations.SPLASH -> false
