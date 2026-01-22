@@ -1,55 +1,18 @@
 <p align="center">
-  Android application that indexes Termux tools using metadata.
+  Android app indexing Termux tools via a metadata-driven pipeline.
 </p>
-
 <p>
-  Termux Hub is a lightweight, metadata-driven Android app that catalogs
-  Termux-related tools using a transparent and reproducible data pipeline.
+  Termux Hub catalogs Termux tools with a reproducible, transparent workflow, storing validated data locally and updating stars and READMEs daily at 00:00 UTC.
 </p>
-
 <h2>How it works</h2>
-
-<ul>
-  <li>Fetches static metadata from GitHub</li>
-  <li>Processes tools, star counts, and READMEs independently</li>
-  <li>Stores validated data in a local Room database</li>
-  <li>Uses the local database as the source of truth after sync</li>
-  <li>Falls back to cached or bundled data if syncing fails</li>
-  <li><strong>Stars and tool READMEs update daily at 00:00 UTC</strong></li>
-</ul>
-
+<p>
+  Fetches static GitHub metadata, processes tools, stars, and READMEs independently, stores them in a local Room database, and falls back to cached or bundled data if syncing fails.
+</p>
 <h2>Data sources</h2>
-
 <p>
-  All data is <strong>read-only</strong> and sourced exclusively from:
+  All read-only data comes from <a href="https://github.com/maazm7d/TermuxHub">TermuxHub GitHub repo</a>, including tool metadata, stars, READMEs, thumbnails, and Hall of Fame entries.
 </p>
-
-<p>
-  <a href="https://github.com/maazm7d/TermuxHub">
-    https://github.com/maazm7d/TermuxHub
-  </a>
-</p>
-
-<p>Consumed resources include:</p>
-
-<ul>
-  <li>Tool metadata index</li>
-  <li>GitHub star counts</li>
-  <li>Tool README files</li>
-  <li>Tool thumbnails</li>
-  <li>Hall of Fame index and entries</li>
-</ul>
-
-<p>
-  No other external sources are accessed.
-</p>
-
 <h2>Contributing</h2>
-
 <p>
-  To add or index your own tool, see:
-  <br/>
-  <a href="https://github.com/maazm7d/TermuxHub/blob/main/CONTRIBUTING.md">
-    CONTRIBUTING.md
-  </a>
+  To add or index a tool, see <a href="https://github.com/maazm7d/TermuxHub/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>.
 </p>
