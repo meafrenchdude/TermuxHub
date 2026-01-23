@@ -15,6 +15,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import dev.jeziellago.compose.markdowntext.MarkdownText
+import com.maazm7d.termuxhub.ui.components.DetailScreenThumbnail
 
 @Composable
 fun ToolDetailScreen(
@@ -46,7 +47,14 @@ fun ToolDetailScreen(
                 )
             }
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(12.dp))
+
+DetailScreenThumbnail(
+    toolId = tool.id,
+    modifier = Modifier.padding(horizontal = 8.dp)
+)
+
+Spacer(modifier = Modifier.height(16.dp))
 
             Text(
                 text = tool.title,
