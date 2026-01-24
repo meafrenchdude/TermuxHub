@@ -5,6 +5,8 @@ on:
     paths:
       - "metadata/metadata.json"
 
+  workflow_dispatch:
+
 permissions:
   contents: write
   pull-requests: write
@@ -52,4 +54,4 @@ jobs:
             and was repaired using a fault-tolerant parser.
 
             Please review the changes.
-          branch: bot/
+          branch: bot/fix-metadata-json
