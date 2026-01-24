@@ -10,6 +10,7 @@ android:name="android.permission.INTERNET" />
         android:name=".TermuxHubApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:label="Termux Hub"
         android:supportsRtl="true"
         android:theme="@style/Theme.TermuxHub.Splash">
