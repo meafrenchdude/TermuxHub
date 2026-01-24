@@ -41,6 +41,8 @@ jobs:
         if: steps.diff.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v6
         with:
+          add-paths: |
+            metadata/metadata.json
           commit-message: "chore(metadata): auto-fix invalid JSON"
           title: "Auto-fix metadata.json syntax"
           body: |
@@ -50,5 +52,4 @@ jobs:
             and was repaired using a fault-tolerant parser.
 
             Please review the changes.
-          branch: bot/fix-metadata-json
-          delete-branch: true
+          branch: bot/
