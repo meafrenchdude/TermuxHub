@@ -1,0 +1,9 @@
+Added shimmer loading state to the Tool Detail screen for faster perceived loading
+
+Displayed tool thumbnail at the top of the Detail screen
+
+Implemented AMOLED dark mode support
+
+Added Material You themed app icon
+
+Enabled deep link support for sharing and opening tools directly in the app
