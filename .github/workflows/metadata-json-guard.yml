@@ -1,0 +1,54 @@
+name: Metadata JSON Guard
+
+on:
+  push:
+    paths:
+      - "metadata/metadata.json"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  repair-json:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install parser
+        run: npm install jsonc-parser
+
+      - name: Fix metadata.json
+        run: node .github/scripts/fix-metadata-json.js
+
+      - name: Detect changes
+        id: diff
+        run: |
+          if git diff --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create PR if fixed
+        if: steps.diff.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore(metadata): auto-fix invalid JSON"
+          title: "Auto-fix metadata.json syntax"
+          body: |
+            This PR was generated automatically.
+
+            The metadata.json file contained invalid or malformed JSON
+            and was repaired using a fault-tolerant parser.
+
+            Please review the changes.
+          branch: bot/fix-metadata-json
+          delete-branch: true
