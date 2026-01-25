@@ -24,11 +24,13 @@ fun TermuxHubAppNav(
     val currentDestination: NavDestination? = backStackEntry?.destination
 
     LaunchedEffect(deepLinkToolId) {
-        if (!deepLinkToolId.isNullOrBlank()) {
-            navController.navigate("${Destinations.DETAILS}/$deepLinkToolId") {
-                popUpTo(Destinations.SPLASH) { inclusive = true }
-                launchSingleTop = true
+        if (deepLinkToolId.isNullOrBlank()) return@LaunchedEffect
+
+        navController.navigate("${Destinations.DETAILS}/$deepLinkToolId") {
+            popUpTo(Destinations.SPLASH) {
+                inclusive = true
             }
+            launchSingleTop = true
         }
     }
 
@@ -53,7 +55,9 @@ fun TermuxHubAppNav(
                             selected = isSelected,
                             onClick = {
                                 navController.navigate(item.route) {
-                                    popUpTo(Destinations.TOOLS) { saveState = true }
+                                    popUpTo(Destinations.TOOLS) {
+                                        saveState = true
+                                    }
                                     launchSingleTop = true
                                     restoreState = true
                                 }

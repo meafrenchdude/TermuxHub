@@ -18,13 +18,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        val toolIdFromLink = intent?.data?.let { uri ->
-    when (uri.scheme) {
-        "termuxhub" -> uri.lastPathSegment
-        "https" -> uri.fragment
-        else -> null
-    }
-}
+        val deepLinkToolId: String? = intent?.data
+            ?.takeIf { it.scheme == "https" }
+            ?.fragment
+            ?.takeIf { it.isNotBlank() }
 
         setContent {
             val darkTheme = isSystemInDarkTheme()
@@ -38,7 +35,7 @@ class MainActivity : ComponentActivity() {
 
             TermuxHubTheme(darkTheme = darkTheme) {
                 TermuxHubAppNav(
-                    deepLinkToolId = toolIdFromLink
+                    deepLinkToolId = deepLinkToolId
                 )
             }
         }
