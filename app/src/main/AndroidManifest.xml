@@ -33,14 +33,18 @@
 
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
+    
                 <data
                     android:scheme="https"
                     android:host="maazm7d.github.io"
                     android:pathPrefix="/termuxhub/tool" />
+    
+                <data
+                    android:scheme="https"
+                    android:host="maazm7d.github.io"
+                    android:pathPattern="/termuxhub/tool/.*" /> 
             </intent-filter>
 
         </activity>
