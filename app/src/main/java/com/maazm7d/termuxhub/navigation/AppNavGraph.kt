@@ -4,9 +4,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -20,15 +18,21 @@ fun TermuxHubAppNav(
     deepLinkToolId: String?
 ) {
     val navController = rememberNavController()
+
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination: NavDestination? = backStackEntry?.destination
 
+    var handledDeepLink by remember { mutableStateOf(false) }
+
     LaunchedEffect(deepLinkToolId) {
         if (deepLinkToolId.isNullOrBlank()) return@LaunchedEffect
+        if (handledDeepLink) return@LaunchedEffect
+
+        handledDeepLink = true
 
         navController.navigate("${Destinations.DETAILS}/$deepLinkToolId") {
-            popUpTo(Destinations.SPLASH) {
-                inclusive = true
+            popUpTo(navController.graph.startDestinationId) {
+                inclusive = false
             }
             launchSingleTop = true
         }

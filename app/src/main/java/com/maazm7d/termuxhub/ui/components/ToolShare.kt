@@ -7,18 +7,15 @@ import com.maazm7d.termuxhub.domain.model.Tool
 object ToolShare {
 
     fun share(context: Context, tool: Tool) {
+        val toolUrl = "https://maazm7d.github.io/termuxhub/tool/${tool.id}"
+
         val shareText = buildString {
-            appendLine("Tool name:")
             appendLine(tool.name)
-
             appendLine()
-            appendLine("Description:")
             appendLine(tool.description)
-
             appendLine()
-            appendLine()
-            appendLine("Open in Termux Hub:")
-            appendLine("https://maazm7d.github.io/termuxhub/tool/#${tool.id}")
+            appendLine("🔗 Open in Termux Hub")
+            appendLine(toolUrl)
         }
 
         val intent = Intent(Intent.ACTION_SEND).apply {
