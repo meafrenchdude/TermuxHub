@@ -95,7 +95,7 @@
 <details>
   <summary><strong>Preview</strong></summary>
   <br/>
-  <a href="https://maazm7d.github.io/termuxhub/tool/#0001">
+  <a href="https://maazm7d.github.io/termuxhub/tool/0001">
     <img
       src="https://raw.githubusercontent.com/maazm7d/TermuxHub/main/assets/open-in.png"
       alt="Open in TermuxHub"
