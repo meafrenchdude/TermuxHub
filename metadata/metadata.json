@@ -1211,6 +1211,66 @@
       "author": "AlexeiCrystal",
       "requireRoot": false,
       "publishedAt": "26-01-2026"
+    },
+    {
+      "id": "0102",
+      "name": "AndroSH",
+      "description": "Professional-Grade Linux Distribution Management on Android Devices with ADB/Shizuku Integration.",
+      "category": "Utilities & Dev",
+      "install": "git clone https://github.com/ahmed-alnassif/AndroSH.git\ncd AndroSH\npip install -r requirements.txt\npython main.py install",
+      "thumbnail": "",
+      "repo": "https://github.com/ahmed-alnassif/AndroSH",
+      "author": "ahmed-alnassif",
+      "requireRoot": false,
+      "publishedAt": "27-01-2026"
+    },
+    {
+      "id": "0103",
+      "name": "SocialBox-Termux",
+      "description": "SocialBox is a Social Media Bruteforce Attack Framework",
+      "category": "Brute Force",
+      "install": "git clone https://github.com/samsesh/SocialBox-Termux.git\ncd SocialBox-Termux\nchmod +x install-sb.sh\n./install-sb.sh",
+      "thumbnail": "",
+      "repo": "https://github.com/samsesh/SocialBox-Termux",
+      "author": "samsesh",
+      "requireRoot": false,
+      "publishedAt": "27-01-2026"
+    },
+    {
+      "id": "0104",
+      "name": "Mr.Holmes",
+      "description": "A Complete Osint Tool",
+      "category": "OSINT & Recon",
+      "install": "pkg install proot\ngit clone https://github.com/Lucksi/Mr.Holmes\ncd Mr.Holmes\nproot -0 chmod +x install_Termux.sh\n./install_Termux.sh",
+      "thumbnail": "",
+      "repo": "https://github.com/Lucksi/Mr.Holmes",
+      "author": "Lucksi",
+      "requireRoot": false,
+      "publishedAt": "27-01-2026"
+    },
+    {
+      "id": "0105",
+      "name": "infect",
+      "description": "Infect Any Android Device With Virus From Link In Termux",
+      "category": "Exploitation Tools",
+      "install": "pip install lolcat\ngit clone https://github.com/noob-hackers/infect\ncd infect\nbash infect.sh",
+      "thumbnail": "",
+      "repo": "https://github.com/noob-hackers/infect",
+      "author": "noob-hackers",
+      "requireRoot": false,
+      "publishedAt": "27-01-2026"
+    },
+    {
+      "id": "0106",
+      "name": "hacklock",
+      "description": "Hack Android Pattern From Termux With This Tool.",
+      "category": "Android Security",
+      "install": "git clone https://github.com/noob-hackers/hacklock\ncd hacklock\nbash setup\nbash hacklock.sh",
+      "thumbnail": "",
+      "repo": "https://github.com/noob-hackers/hacklock",
+      "author": "noob-hackers",
+      "requireRoot": false,
+      "publishedAt": "27-01-2026"
     }
   ]
 }
