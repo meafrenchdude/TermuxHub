@@ -4,8 +4,8 @@ import android.content.Context
 import com.maazm7d.termuxhub.data.local.ToolDao
 import com.maazm7d.termuxhub.data.local.entities.ToolEntity
 import com.maazm7d.termuxhub.data.remote.MetadataClient
-import com.maazm7d.termuxhub.data.remote.RepoStatsLoader
 import com.maazm7d.termuxhub.data.remote.dto.MetadataDto
+import com.maazm7d.termuxhub.data.remote.dto.RepoStatsDto
 import com.maazm7d.termuxhub.data.remote.dto.ToolDto
 import com.maazm7d.termuxhub.domain.model.ToolDetails
 import com.squareup.moshi.Moshi
@@ -25,12 +25,8 @@ class ToolRepositoryImpl @Inject constructor(
 ) : ToolRepository {
 
     private val moshi = Moshi.Builder()
-        .addLast(KotlinJsonAdapterFactory())
+        .add(KotlinJsonAdapterFactory())
         .build()
-
-    private val repoStats by lazy {
-        RepoStatsLoader(appContext, moshi).stats
-    }
 
     override fun observeAll(): Flow<List<ToolEntity>> =
         toolDao.getAllToolsFlow()
@@ -50,9 +46,10 @@ class ToolRepositoryImpl @Inject constructor(
         return try {
             val response = metadataClient.fetchMetadata()
             if (response.isSuccessful && response.body() != null) {
+                val repoStats = fetchRepoStats()
                 response.body()!!.tools.forEach { dto ->
                     val existing = toolDao.getToolById(dto.id)
-                    val entity = dto.toEntity(existing)
+                    val entity = dto.toEntity(existing, repoStats)
                     if (entity != null) toolDao.insert(entity)
                 }
                 applyStars()
@@ -77,6 +74,16 @@ class ToolRepositoryImpl @Inject constructor(
         }
     }
 
+    private suspend fun fetchRepoStats(): Map<String, RepoStatsDto> {
+        return try {
+            val resp = metadataClient.fetchRepoStats()
+            if (resp.isSuccessful) resp.body()?.stats ?: emptyMap()
+            else emptyMap()
+        } catch (_: Exception) {
+            emptyMap()
+        }
+    }
+
     private suspend fun applyStars() {
         val starsMap = fetchStars()
         starsMap.forEach { (toolId, starCount) ->
@@ -89,6 +96,7 @@ class ToolRepositoryImpl @Inject constructor(
 
     private suspend fun loadFromAssets(): Boolean = withContext(Dispatchers.IO) {
         try {
+            val repoStats = fetchRepoStats()
             val input = appContext.assets.open(assetsFileName)
             val text = BufferedReader(InputStreamReader(input)).use { it.readText() }
             val adapter = moshi.adapter(MetadataDto::class.java)
@@ -96,7 +104,7 @@ class ToolRepositoryImpl @Inject constructor(
 
             dto?.tools?.forEach { t ->
                 val existing = toolDao.getToolById(t.id)
-                val entity = t.toEntity(existing)
+                val entity = t.toEntity(existing, repoStats)
                 if (entity != null) toolDao.insert(entity)
             }
 
@@ -108,7 +116,10 @@ class ToolRepositoryImpl @Inject constructor(
         }
     }
 
-    private fun ToolDto.toEntity(existing: ToolEntity? = null): ToolEntity? {
+    private fun ToolDto.toEntity(
+        existing: ToolEntity? = null,
+        repoStats: Map<String, RepoStatsDto>
+    ): ToolEntity? {
         if (id.isBlank() || name.isBlank()) return null
 
         val stats = repoStats[id]
@@ -129,8 +140,8 @@ class ToolRepositoryImpl @Inject constructor(
             license = stats?.license ?: existing?.license,
             stars = stats?.stars ?: existing?.stars ?: 0,
             updatedAt = stats?.lastUpdated
-            ?: existing?.updatedAt
-            ?: System.currentTimeMillis(),
+                ?: existing?.updatedAt
+                ?: System.currentTimeMillis(),
             isFavorite = existing?.isFavorite ?: false,
             publishedAt = publishedAt
         )
