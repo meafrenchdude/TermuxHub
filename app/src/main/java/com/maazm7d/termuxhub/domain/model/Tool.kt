@@ -1,4 +1,5 @@
 package com.maazm7d.termuxhub.domain.model
+
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -15,7 +16,12 @@ data class Tool(
     val updatedAt: Long,
     val isFavorite: Boolean,
     val publishedAt: String?,
-    val tags: List<String> = emptyList()
+    val tags: List<String> = emptyList(),
+    val stars: Int = 0,
+    val forks: Int = 0,
+    val issues: Int = 0,
+    val pullRequests: Int = 0,
+    val license: String? = null
 )
 
 private val publishedDateFormat =
@@ -32,5 +38,11 @@ data class ToolDetails(
     val description: String,
     val readme: String,
     val installCommands: String,
-    val repoUrl: String?
+    val repoUrl: String?,
+    val stars: Int = 0,
+    val forks: Int = 0,
+    val issues: Int = 0,
+    val pullRequests: Int = 0,
+    val license: String? = null,
+    val lastUpdated: Long = 0L
 )

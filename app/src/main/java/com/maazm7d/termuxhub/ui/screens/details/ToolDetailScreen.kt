@@ -106,7 +106,7 @@ private fun ToolDetailContent(
 
             Spacer(modifier = Modifier.height(10.dp))
     
-            ToolRepoBadgesRow(toolDetails)
+            ToolRepoBadgesRow(tool)
             
             Spacer(modifier = Modifier.height(16.dp))
             

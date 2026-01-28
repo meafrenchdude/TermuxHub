@@ -21,7 +21,7 @@ class ToolRepositoryImpl @Inject constructor(
     private val toolDao: ToolDao,
     private val metadataClient: MetadataClient,
     private val appContext: Context,
-    private val assetsFileName: String = "metadata.json"
+    private val assetsFileName: String = "metadata/metadata.json"
 ) : ToolRepository {
 
     private val moshi = Moshi.Builder()
@@ -123,6 +123,10 @@ class ToolRepositoryImpl @Inject constructor(
             author = author ?: "",
             requireRoot = requireRoot ?: false,
             thumbnail = thumbnail,
+            forks = stats?.forks ?: existing?.forks ?: 0,
+            issues = stats?.issues ?: existing?.issues ?: 0,
+            pullRequests = stats?.pullRequests ?: existing?.pullRequests ?: 0,
+            license = stats?.license ?: existing?.license,
             stars = stats?.stars ?: existing?.stars ?: 0,
             updatedAt = stats?.lastUpdated ?: (updatedAt ?: 0L),
             isFavorite = existing?.isFavorite ?: false,
@@ -146,7 +150,13 @@ class ToolRepositoryImpl @Inject constructor(
             description = tool.description,
             readme = readmeText,
             installCommands = tool.installCommand ?: "",
-            repoUrl = tool.repoUrl
+            repoUrl = tool.repoUrl,
+            stars = tool.stars,
+            forks = tool.forks,
+            issues = tool.issues,
+            pullRequests = tool.pullRequests,
+            license = tool.license,
+            lastUpdated = tool.updatedAt
         )
     }
 }

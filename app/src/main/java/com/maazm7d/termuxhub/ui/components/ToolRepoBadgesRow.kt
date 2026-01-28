@@ -13,16 +13,20 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.maazm7d.termuxhub.domain.model.ToolDetails
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ToolRepoBadgesRow(tool: ToolDetails) {
-    LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+    LazyRow(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = Modifier.padding(vertical = 8.dp)
+    ) {
         item { Badge(Icons.Outlined.StarOutline, tool.stars.toString()) }
         item { Badge(Icons.Outlined.CallSplit, tool.forks.toString()) }
         item { Badge(Icons.Outlined.BugReport, tool.issues.toString()) }
         item { Badge(Icons.Outlined.Merge, tool.pullRequests.toString()) }
 
-        tool.license?.let {
-            item { Badge(Icons.Outlined.Description, it) }
+        tool.license?.let { license ->
+            item { Badge(Icons.Outlined.Description, license) }
         }
 
         item {
@@ -39,18 +43,30 @@ fun ToolRepoBadgesRow(tool: ToolDetails) {
 }
 
 @Composable
-private fun Badge(icon: ImageVector, text: String) {
+private fun Badge(
+    icon: ImageVector,
+    text: String
+) {
     Surface(
-        shape = MaterialTheme.shapes.large,
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
+        shape = MaterialTheme.shapes.small,
+        color = MaterialTheme.colorScheme.surfaceVariant,
+        contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+        border = CardDefaults.outlinedCardBorder()
     ) {
         Row(
-            modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(icon, null, modifier = Modifier.size(16.dp))
-            Spacer(Modifier.width(6.dp))
-            Text(text, style = MaterialTheme.typography.labelMedium)
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                modifier = Modifier.size(14.dp)
+            )
+            Spacer(modifier = Modifier.width(4.dp))
+            Text(
+                text = text,
+                style = MaterialTheme.typography.labelSmall
+            )
         }
     }
 }

@@ -3,6 +3,7 @@ package com.maazm7d.termuxhub.ui.screens.saved
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maazm7d.termuxhub.data.repository.ToolRepository
+import com.maazm7d.termuxhub.domain.mapper.toDomain
 import com.maazm7d.termuxhub.domain.model.Tool
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -11,7 +12,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import com.maazm7d.termuxhub.domain.mapper.toDomain
 
 @HiltViewModel
 class SavedViewModel @Inject constructor(
@@ -20,8 +20,16 @@ class SavedViewModel @Inject constructor(
 
     val savedTools: StateFlow<List<Tool>> =
         repository.observeFavorites()
-            .map { list -> list.map { it.toDomain() } }
-            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+            .map { toolEntities ->
+                toolEntities.map { toolEntity ->
+                    toolEntity.toDomain()
+                }
+            }
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5000),
+                initialValue = emptyList()
+            )
 
     fun removeTool(tool: Tool) {
         viewModelScope.launch {
