@@ -10,73 +10,35 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.maazm7d.termuxhub.domain.model.ToolDetails
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ToolRepoBadgesRow(tool: ToolDetails) {
     LazyRow(
+        modifier = Modifier.padding(vertical = 10.dp),
         horizontalArrangement = Arrangement.spacedBy(10.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .padding(vertical = 12.dp)
-            .fillMaxWidth()
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        item { 
-            RepoBadge(
-                icon = Icons.Outlined.Star,
-                text = tool.stars.toString(),
-                iconTint = MaterialTheme.colorScheme.secondary
-            ) 
-        }
-        
-        item { 
-            RepoBadge(
-                icon = Icons.Outlined.CallSplit,
-                text = tool.forks.toString(),
-                iconTint = MaterialTheme.colorScheme.tertiary
-            ) 
-        }
-        
-        item { 
-            RepoBadge(
-                icon = Icons.Outlined.BugReport,
-                text = tool.issues.toString(),
-                iconTint = MaterialTheme.colorScheme.error
-            ) 
-        }
-        
-        item { 
-            RepoBadge(
-                icon = Icons.Outlined.MergeType,
-                text = tool.pullRequests.toString(),
-                iconTint = MaterialTheme.colorScheme.primary
-            ) 
-        }
+        item { RepoBadge(Icons.Outlined.StarOutline, tool.stars.toString()) }
+        item { RepoBadge(Icons.Outlined.CallSplit, tool.forks.toString()) }
+        item { RepoBadge(Icons.Outlined.BugReport, tool.issues.toString()) }
+        item { RepoBadge(Icons.Outlined.Merge, tool.pullRequests.toString()) }
 
-        tool.license?.let { license ->
-            item { 
-                RepoBadge(
-                    icon = Icons.Outlined.Description,
-                    text = license,
-                    iconTint = MaterialTheme.colorScheme.primary
-                ) 
-            }
+        tool.license?.let {
+            item { RepoBadge(Icons.Outlined.Description, it) }
         }
 
         item {
             RepoBadge(
-                icon = Icons.Outlined.Update,
-                text = DateUtils.getRelativeTimeSpanString(
+                Icons.Outlined.Schedule,
+                DateUtils.getRelativeTimeSpanString(
                     tool.lastUpdated,
                     System.currentTimeMillis(),
                     DateUtils.DAY_IN_MILLIS
-                ).toString(),
-                iconTint = MaterialTheme.colorScheme.onSurfaceVariant
+                ).toString()
             )
         }
     }
@@ -85,42 +47,35 @@ fun ToolRepoBadgesRow(tool: ToolDetails) {
 @Composable
 private fun RepoBadge(
     icon: ImageVector,
-    text: String,
-    iconTint: androidx.compose.ui.graphics.Color = MaterialTheme.colorScheme.onSurfaceVariant
+    text: String
 ) {
-    Card(
-        modifier = Modifier
-            .heightIn(min = 32.dp)
-            .clip(RoundedCornerShape(16.dp)),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.9f)
-        ),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 1.dp
-        ),
-        shape = RoundedCornerShape(16.dp),
-        border = CardDefaults.outlinedCardBorder()
+    val badgeBackground = Color(0xFFE7F1FF)  
+    val badgeContent = Color(0xFF1E3A5F) 
+
+    Surface(
+        shape = RoundedCornerShape(50), // pill shape
+        color = badgeBackground,
+        tonalElevation = 2.dp,
+        shadowElevation = 1.dp
     ) {
         Row(
             modifier = Modifier
                 .padding(horizontal = 12.dp, vertical = 6.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(6.dp)
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
                 imageVector = icon,
                 contentDescription = null,
-                modifier = Modifier.size(14.dp),
-                tint = iconTint
+                modifier = Modifier.size(16.dp),
+                tint = badgeContent
             )
-            
+
+            Spacer(modifier = Modifier.width(6.dp))
+
             Text(
                 text = text,
-                style = MaterialTheme.typography.labelSmall.copy(
-                    fontWeight = FontWeight.Medium
-                ),
-                color = MaterialTheme.colorScheme.onSecondaryContainer,
-                maxLines = 1
+                style = MaterialTheme.typography.labelMedium,
+                color = badgeContent
             )
         }
     }
