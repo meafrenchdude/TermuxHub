@@ -128,7 +128,9 @@ class ToolRepositoryImpl @Inject constructor(
             pullRequests = stats?.pullRequests ?: existing?.pullRequests ?: 0,
             license = stats?.license ?: existing?.license,
             stars = stats?.stars ?: existing?.stars ?: 0,
-            updatedAt = stats?.lastUpdated ?: (updatedAt ?: 0L),
+            updatedAt = stats?.lastUpdated
+            ?: existing?.updatedAt
+            ?: System.currentTimeMillis(),
             isFavorite = existing?.isFavorite ?: false,
             publishedAt = publishedAt
         )
