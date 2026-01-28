@@ -76,9 +76,9 @@ function rewriteUrls(md, o) {
     `![$1](https://raw.githubusercontent.com/${o.owner}/${o.repo}/${o.branch}/$2)`
   );
   out = out.replace(
-    /\[([^\]]+)\]\((?!https?:\/\/)([^)]+)\)/g,
-    `[$1](https://github.com/${o.owner}/${o.repo}/blob/${o.branch}/$2)`
-  );
+  /\[([^\]]+)\]\((?!https?:\/\/)([^)]+)\)/g,
+  `[$1](https://raw.githubusercontent.com/${o.owner}/${o.repo}/${o.branch}/$2)`
+);
   return out;
 }
 
