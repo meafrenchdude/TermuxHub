@@ -36,8 +36,8 @@ jobs:
           git config user.name "termuxhub-bot"
           git config user.email "bot@termuxhub.dev"
           if [ -n "$(git status --porcelain)" ]; then
-            git add metadata/readme metadata/stars.json
-            git commit -m "metadata: synchronize tool READMEs, and stars"
+            git add ./metadata
+            git commit -m "metadata: synchronize tool metadata"
             git push
           else
             echo "No changes detected"
