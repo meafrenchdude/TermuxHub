@@ -159,7 +159,7 @@ async function main() {
   }
 
   fs.writeFileSync(STARS_PATH, JSON.stringify(starsOutput, null, 2));
-  fs.writeFileSync(REPO_STATS_PATH, JSON.stringify(repoStatsOutput, null, 2));
+  fs.writeFileSync(STATS_PATH, JSON.stringify(repoStatsOutput, null, 2));
 }
 
 process.on("unhandledRejection", e => {
