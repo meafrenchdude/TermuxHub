@@ -23,6 +23,7 @@ import com.maazm7d.termuxhub.ui.components.shimmer
 import com.maazm7d.termuxhub.ui.components.ToolRepoBadgesRow
 import com.maazm7d.termuxhub.domain.model.ToolDetails
 import kotlinx.coroutines.launch
+import androidx.compose.foundation.text.selection.SelectionContainer
 
 @Composable
 fun ToolDetailScreen(
@@ -83,6 +84,7 @@ private fun ToolDetailContent(
 
     Box(modifier = Modifier.fillMaxSize()) {
 
+    SelectionContainer {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -210,6 +212,7 @@ Spacer(modifier = Modifier.height(16.dp))
                 }
             }
         }
+    }
 
         if (scrollState.maxValue > 0 && scrollState.value < scrollState.maxValue) {
             FloatingActionButton(
