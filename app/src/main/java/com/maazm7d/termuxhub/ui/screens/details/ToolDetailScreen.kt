@@ -130,7 +130,16 @@ private fun ToolDetailContent(
                     .padding(horizontal = 12.dp)
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(16.dp))
+
+HorizontalDivider(
+    modifier = Modifier
+        .fillMaxWidth()
+        .padding(horizontal = 8.dp),
+    color = MaterialTheme.colorScheme.outlineVariant
+)
+
+Spacer(modifier = Modifier.height(16.dp))
            
             if (tool.readme.isNotBlank()) {
                 MarkdownText(
@@ -141,6 +150,15 @@ private fun ToolDetailContent(
 
                 Spacer(modifier = Modifier.height(24.dp))
             }
+
+            HorizontalDivider(
+    modifier = Modifier
+        .fillMaxWidth()
+        .padding(horizontal = 8.dp),
+    color = MaterialTheme.colorScheme.outlineVariant
+)
+
+Spacer(modifier = Modifier.height(16.dp))
 
             if (tool.installCommands.isNotBlank()) {
                 Text(
