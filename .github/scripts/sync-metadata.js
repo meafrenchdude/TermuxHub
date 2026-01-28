@@ -10,7 +10,6 @@ const README_SIZE_LIMIT = 100 * 1024;
 const TOKEN = process.env.GITHUB_TOKEN;
 
 function info(m) { console.log(`[INFO] ${new Date().toISOString()} ${m}`); }
-function warn(m) { console.warn(`[WARN] ${new Date().toISOString()} ${m}`); }
 function error(m, e) {
   console.error(`[ERROR] ${new Date().toISOString()} ${m}`);
   if (e) console.error(e.stack || e.message || e);
@@ -117,8 +116,9 @@ async function main() {
   const metadata = readJson(METADATA_PATH);
   ensureDir(README_DIR);
 
-  const starsOutput = {};
-  const repoStatsOutput = {};
+  const starsMap = {};
+  const statsMap = {};
+  const today = new Date().toISOString().slice(0, 10);
 
   for (const tool of metadata.tools) {
     const repo = parseRepo(tool.repo);
@@ -143,9 +143,9 @@ async function main() {
       pullRequests = await fetchPullRequestCount(repo.owner, repo.repo);
     } catch {}
 
-    starsOutput[tool.id] = stars;
+    starsMap[tool.id] = stars;
 
-    repoStatsOutput[tool.id] = {
+    statsMap[tool.id] = {
       forks,
       issues,
       pullRequests,
@@ -158,8 +158,23 @@ async function main() {
     fs.writeFileSync(path.join(README_DIR, `${tool.id}.md`), content);
   }
 
-  fs.writeFileSync(STARS_PATH, JSON.stringify(starsOutput, null, 2));
-  fs.writeFileSync(STATS_PATH, JSON.stringify(repoStatsOutput, null, 2));
+  fs.writeFileSync(
+    STARS_PATH,
+    JSON.stringify(
+      { lastUpdated: today, stars: starsMap },
+      null,
+      2
+    )
+  );
+
+  fs.writeFileSync(
+    STATS_PATH,
+    JSON.stringify(
+      { lastUpdated: today, stats: statsMap },
+      null,
+      2
+    )
+  );
 }
 
 process.on("unhandledRejection", e => {
