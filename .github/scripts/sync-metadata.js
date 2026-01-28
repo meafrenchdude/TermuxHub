@@ -4,7 +4,7 @@ import https from "https";
 
 const METADATA_PATH = "metadata/metadata.json";
 const STARS_PATH = "metadata/stars.json";
-const REPO_STATS_PATH = "metadata/repo_stats.json";
+const STATS_PATH = "metadata/repo_stats.json";
 const README_DIR = "metadata/readme";
 const README_SIZE_LIMIT = 100 * 1024;
 const TOKEN = process.env.GITHUB_TOKEN;
