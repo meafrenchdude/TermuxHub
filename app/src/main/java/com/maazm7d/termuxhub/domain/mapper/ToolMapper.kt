@@ -16,4 +16,9 @@ fun ToolEntity.toDomain() = Tool(
     updatedAt = updatedAt,
     isFavorite = isFavorite,
     publishedAt = publishedAt
+    val forks: Int,
+    val issues: Int,
+    val pullRequests: Int,
+    val license: String?,
+    val lastUpdated: Long
 )

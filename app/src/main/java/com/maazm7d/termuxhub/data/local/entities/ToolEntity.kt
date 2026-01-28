@@ -12,6 +12,10 @@ data class ToolEntity(
     val name: String,
     val description: String,
     val category: String,
+    val forks: Int = 0,
+    val issues: Int = 0,
+    val pullRequests: Int = 0,
+    val license: String? = null,
 
     @ColumnInfo(name = "install_command")
     val installCommand: String?,

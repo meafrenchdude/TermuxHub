@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import dev.jeziellago.compose.markdowntext.MarkdownText
 import com.maazm7d.termuxhub.ui.components.DetailScreenThumbnail
 import com.maazm7d.termuxhub.ui.components.shimmer
+import com.maazm7d.termuxhub.ui.components.ToolRepoBadgesRow
 import com.maazm7d.termuxhub.domain.model.ToolDetails
 import kotlinx.coroutines.launch
 
@@ -103,8 +104,12 @@ private fun ToolDetailContent(
                 modifier = Modifier.padding(horizontal = 8.dp)
             )
 
+            Spacer(modifier = Modifier.height(10.dp))
+    
+            ToolRepoBadgesRow(toolDetails)
+            
             Spacer(modifier = Modifier.height(16.dp))
-
+            
             Text(
                 text = tool.title,
                 style = MaterialTheme.typography.headlineSmall,
@@ -126,7 +131,7 @@ private fun ToolDetailContent(
             )
 
             Spacer(modifier = Modifier.height(24.dp))
-
+           
             if (tool.readme.isNotBlank()) {
                 MarkdownText(
                     markdown = tool.readme,
