@@ -149,11 +149,7 @@ Spacer(modifier = Modifier.height(16.dp))
     markdown = tool.readme,
     modifier = Modifier.fillMaxWidth(),
     style = MaterialTheme.typography.bodyMedium,
-    isTextSelectable = true,
-    textSelectionColors = TextSelectionColors(
-        handleColor = MaterialTheme.colorScheme.primary, 
-        backgroundColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f)
-    )
+    isTextSelectable = true
 )
                 Spacer(modifier = Modifier.height(24.dp))
             }
