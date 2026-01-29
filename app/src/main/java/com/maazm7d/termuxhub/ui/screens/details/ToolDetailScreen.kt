@@ -42,15 +42,11 @@ fun ToolDetailScreen(
     }
 
     when (uiState) {
-        is ToolDetailUiState.Loading -> {
-            ToolDetailShimmer()
-        }
-
-        is ToolDetailUiState.Success -> {
-            val tool = (uiState as ToolDetailUiState.Success).tool
-            ToolDetailContent(tool = tool, onBack = onBack)
-        }
-
+        is ToolDetailUiState.Loading -> ToolDetailShimmer()
+        is ToolDetailUiState.Success -> ToolDetailContent(
+            tool = (uiState as ToolDetailUiState.Success).tool,
+            onBack = onBack
+        )
         is ToolDetailUiState.Error -> {
             Box(
                 modifier = Modifier.fillMaxSize(),
@@ -87,154 +83,163 @@ private fun ToolDetailContent(
     val scope = rememberCoroutineScope()
 
     Box(modifier = Modifier.fillMaxSize()) {
-
-    SelectionContainer {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(scrollState)
-                .padding(16.dp)
-        ) {
-
-            IconButton(onClick = onBack, modifier = Modifier.size(40.dp)) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "Back"
-                )
-            }
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-            DetailScreenThumbnail(
-                toolId = tool.id,
-                modifier = Modifier.padding(horizontal = 8.dp)
-            )
-
-            Spacer(modifier = Modifier.height(10.dp))
-    
-            ToolRepoBadgesRow(tool)
-            
-            Spacer(modifier = Modifier.height(16.dp))
-            
-            Text(
-                text = tool.title,
-                style = MaterialTheme.typography.headlineSmall,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center
-            )
-
-            Spacer(modifier = Modifier.height(10.dp))
-
-            Text(
-                text = tool.description,
-                style = MaterialTheme.typography.bodyMedium,
-                textAlign = TextAlign.Center,
-                maxLines = 3,
-                overflow = TextOverflow.Ellipsis,
+        SelectionContainer {
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 12.dp)
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-HorizontalDivider(
-    modifier = Modifier
-        .fillMaxWidth()
-        .padding(horizontal = 8.dp),
-    color = MaterialTheme.colorScheme.outlineVariant
-)
-
-Spacer(modifier = Modifier.height(16.dp))
-           
-            if (tool.readme.isNotBlank()) {
-                
-     Markdown(
-    content = tool.readme,
-    modifier = Modifier.fillMaxWidth(),
-    typography = markdownTypography(
-        text = TextStyle(
-            fontSize = 13.sp,
-            lineHeight = 18.sp
-        ),
-        h1 = TextStyle(fontSize = 20.sp),
-        h2 = TextStyle(fontSize = 18.sp),
-        h3 = TextStyle(fontSize = 16.sp),
-        h4 = TextStyle(fontSize = 15.sp),
-        h5 = TextStyle(fontSize = 14.sp),
-        h6 = TextStyle(fontSize = 13.sp),
-        code = TextStyle(
-            fontSize = 12.sp,
-            lineHeight = 16.sp
-        ),
-        bullet = TextStyle(fontSize = 13.sp),
-        quote = TextStyle(fontSize = 13.sp)
-    ),
-    imageTransformer = Coil3ImageTransformerImpl
-)
-                Spacer(modifier = Modifier.height(24.dp))
-            }
-
-            HorizontalDivider(
-    modifier = Modifier
-        .fillMaxWidth()
-        .padding(horizontal = 8.dp),
-    color = MaterialTheme.colorScheme.outlineVariant
-)
-
-Spacer(modifier = Modifier.height(16.dp))
-
-            if (tool.installCommands.isNotBlank()) {
-                Text(
-                    text = "Installation",
-                    style = MaterialTheme.typography.titleMedium
-                )
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                tool.installCommands
-                    .lines()
-                    .filter { it.isNotBlank() }
-                    .forEach { cmd ->
-                        InstallCommandRow(command = cmd)
-                    }
-
-                Spacer(modifier = Modifier.height(24.dp))
-            }
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    .fillMaxSize()
+                    .verticalScroll(scrollState)
+                    .padding(16.dp)
             ) {
-
-                OutlinedButton(
-                    onClick = { tool.repoUrl?.let { uriHandler.openUri(it) } },
-                    modifier = Modifier.weight(1f)
-                ) {
+                IconButton(onClick = onBack, modifier = Modifier.size(40.dp)) {
                     Icon(
-                        imageVector = Icons.Filled.Code,
-                        contentDescription = "Source Code",
-                        modifier = Modifier.size(18.dp)
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Back"
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text("Source Code")
                 }
 
-                OutlinedButton(
-                    onClick = { tool.repoUrl?.let { uriHandler.openUri("$it/issues") } },
-                    modifier = Modifier.weight(1f)
+                Spacer(modifier = Modifier.height(12.dp))
+
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(12.dp),
+                    elevation = CardDefaults.cardElevation(8.dp),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
                 ) {
-                    Icon(
-                        imageVector = Icons.Filled.BugReport,
-                        contentDescription = "Report Issue",
-                        modifier = Modifier.size(18.dp)
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier.padding(16.dp)
+                    ) {
+                        DetailScreenThumbnail(
+                            toolId = tool.id,
+                            modifier = Modifier.padding(horizontal = 8.dp)
+                        )
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        ToolRepoBadgesRow(tool)
+
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        Text(
+                            text = tool.title,
+                            style = MaterialTheme.typography.headlineSmall,
+                            textAlign = TextAlign.Center
+                        )
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        Text(
+                            text = tool.description,
+                            style = MaterialTheme.typography.bodyMedium,
+                            textAlign = TextAlign.Center,
+                            maxLines = 3,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.padding(horizontal = 12.dp)
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                HorizontalDivider(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 8.dp),
+                    color = MaterialTheme.colorScheme.outlineVariant
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                if (tool.readme.isNotBlank()) {
+                    Markdown(
+                        content = tool.readme,
+                        modifier = Modifier.fillMaxWidth(),
+                        typography = markdownTypography(
+                            text = TextStyle(fontSize = 13.sp, lineHeight = 18.sp),
+                            h1 = TextStyle(fontSize = 20.sp),
+                            h2 = TextStyle(fontSize = 18.sp),
+                            h3 = TextStyle(fontSize = 16.sp),
+                            h4 = TextStyle(fontSize = 15.sp),
+                            h5 = TextStyle(fontSize = 14.sp),
+                            h6 = TextStyle(fontSize = 13.sp),
+                            code = TextStyle(fontSize = 12.sp, lineHeight = 16.sp),
+                            bullet = TextStyle(fontSize = 13.sp),
+                            quote = TextStyle(fontSize = 13.sp)
+                        ),
+                        imageTransformer = Coil3ImageTransformerImpl
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text("Report Issue")
+                    Spacer(modifier = Modifier.height(24.dp))
+                }
+
+                HorizontalDivider(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 8.dp),
+                    color = MaterialTheme.colorScheme.outlineVariant
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                if (tool.installCommands.isNotBlank()) {
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(12.dp),
+                        elevation = CardDefaults.cardElevation(6.dp),
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+                    ) {
+                        Column(modifier = Modifier.padding(16.dp)) {
+                            Text(
+                                text = "Installation",
+                                style = MaterialTheme.typography.titleMedium
+                            )
+
+                            Spacer(modifier = Modifier.height(8.dp))
+
+                            tool.installCommands
+                                .lines()
+                                .filter { it.isNotBlank() }
+                                .forEach { cmd ->
+                                    InstallCommandRow(command = cmd)
+                                }
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(24.dp))
+                }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+
+                    OutlinedButton(
+                        onClick = { tool.repoUrl?.let { uriHandler.openUri(it) } },
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.Code,
+                            contentDescription = "Source Code",
+                            modifier = Modifier.size(18.dp)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text("Source Code")
+                    }
+
+                    OutlinedButton(
+                        onClick = { tool.repoUrl?.let { uriHandler.openUri("$it/issues") } },
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.BugReport,
+                            contentDescription = "Report Issue",
+                            modifier = Modifier.size(18.dp)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text("Report Issue")
+                    }
                 }
             }
         }
-    }
 
         if (scrollState.maxValue > 0 && scrollState.value < scrollState.maxValue) {
             FloatingActionButton(
@@ -265,7 +270,6 @@ private fun ToolDetailShimmer() {
             .verticalScroll(rememberScrollState())
             .padding(16.dp)
     ) {
-
         Box(
             modifier = Modifier
                 .size(40.dp)
