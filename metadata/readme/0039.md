@@ -46,4 +46,3 @@
 [![Stargazers repo roster for @mishakorzik/Gmail-Hack](https://reporoster.com/stars/mishakorzik/Gmail-Hack)](https://github.com/mishakorzik/Gmail-Hack/stargazers)
 [![Forkers repo roster for @mishakorzik/Gmail-Hack](https://reporoster.com/forks/mishakorzik/Gmail-Hack)](https://github.com/mishakorzik/Gmail-Hack/members)
 
-
