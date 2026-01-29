@@ -26,6 +26,8 @@ import androidx.compose.foundation.text.selection.SelectionContainer
 import com.mikepenz.markdown.m3.Markdown
 import com.mikepenz.markdown.m3.markdownTypography
 import com.mikepenz.markdown.coil3.Coil3ImageTransformerImpl
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun ToolDetailScreen(
@@ -151,7 +153,22 @@ Spacer(modifier = Modifier.height(16.dp))
     content = tool.readme,
     modifier = Modifier.fillMaxWidth(),
     typography = markdownTypography(
-        text = MaterialTheme.typography.bodySmall
+        text = TextStyle(
+            fontSize = 13.sp,
+            lineHeight = 18.sp
+        ),
+        h1 = TextStyle(fontSize = 20.sp),
+        h2 = TextStyle(fontSize = 18.sp),
+        h3 = TextStyle(fontSize = 16.sp),
+        h4 = TextStyle(fontSize = 15.sp),
+        h5 = TextStyle(fontSize = 14.sp),
+        h6 = TextStyle(fontSize = 13.sp),
+        code = TextStyle(
+            fontSize = 12.sp,
+            lineHeight = 16.sp
+        ),
+        bullet = TextStyle(fontSize = 13.sp),
+        quote = TextStyle(fontSize = 13.sp)
     ),
     imageTransformer = Coil3ImageTransformerImpl
 )
