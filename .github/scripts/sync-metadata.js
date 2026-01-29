@@ -9,7 +9,14 @@ const README_DIR = "metadata/readme";
 const README_SIZE_LIMIT = 100 * 1024;
 const TOKEN = process.env.GITHUB_TOKEN;
 
-function info(m) { console.log(`[INFO] ${new Date().toISOString()} ${m}`); }
+function info(m) {
+  console.log(`[INFO] ${new Date().toISOString()} ${m}`);
+}
+
+function warn(m) {
+  console.warn(`[WARN] ${new Date().toISOString()} ${m}`);
+}
+
 function error(m, e) {
   console.error(`[ERROR] ${new Date().toISOString()} ${m}`);
   if (e) console.error(e.stack || e.message || e);
@@ -21,15 +28,22 @@ if (!TOKEN) {
 }
 
 function readJson(p) {
+  info(`Reading JSON: ${p}`);
   return JSON.parse(fs.readFileSync(p, "utf8"));
 }
 
 function ensureDir(d) {
-  if (!fs.existsSync(d)) fs.mkdirSync(d, { recursive: true });
+  if (!fs.existsSync(d)) {
+    info(`Creating directory: ${d}`);
+    fs.mkdirSync(d, { recursive: true });
+  }
 }
 
 function parseRepo(url) {
-  if (!url) return null;
+  if (!url) {
+    warn("Empty repo URL");
+    return null;
+  }
   const cleaned = url
     .trim()
     .replace(/^git\+/, "")
@@ -37,11 +51,15 @@ function parseRepo(url) {
     .replace(/\.git$/, "")
     .replace(/\/$/, "");
   const parts = cleaned.split("/");
-  if (parts.length !== 2) return null;
+  if (parts.length !== 2) {
+    warn(`Invalid repo URL: ${url}`);
+    return null;
+  }
   return { owner: parts[0], repo: parts[1] };
 }
 
 function github(pathname) {
+  info(`GitHub API request: ${pathname}`);
   return new Promise((resolve, reject) => {
     const req = https.request(
       {
@@ -76,14 +94,25 @@ function rewriteUrls(md, o) {
     `![$1](https://raw.githubusercontent.com/${o.owner}/${o.repo}/${o.branch}/$2)`
   );
   out = out.replace(
-  /\[([^\]]+)\]\((?!https?:\/\/)([^)]+)\)/g,
-  `[$1](https://raw.githubusercontent.com/${o.owner}/${o.repo}/${o.branch}/$2)`
-);
+    /\[([^\]]+)\]\((?!https?:\/\/)([^)]+)\)/g,
+    `[$1](https://raw.githubusercontent.com/${o.owner}/${o.repo}/${o.branch}/$2)`
+  );
   return out;
+}
+
+function stripBadges(md) {
+  return md
+    .replace(/!\[.*?\]\(https?:\/\/img\.shields\.io\/.*?\)/gi, "")
+    .replace(/!\[.*?\]\(https?:\/\/github\.com\/.*?\/workflows\/.*?\)/gi, "")
+    .replace(/!\[.*?\]\(https?:\/\/travis-ci\..*?\)/gi, "")
+    .replace(/!\[.*?\]\(https?:\/\/codecov\.io\/.*?\)/gi, "")
+    .replace(/!\[.*?\]\(https?:\/\/badge\.fury\.io\/.*?\)/gi, "")
+    .replace(/\n{3,}/g, "\n\n");
 }
 
 function truncate(md) {
   if (Buffer.byteLength(md, "utf8") <= README_SIZE_LIMIT) return md;
+  warn("README size limit exceeded, truncating");
   let t = md.slice(0, README_SIZE_LIMIT);
   t = t.slice(0, t.lastIndexOf("\n"));
   return `${t}\n\n---\n\nREADME truncated by TermuxHub\n`;
@@ -91,16 +120,20 @@ function truncate(md) {
 
 async function fetchReadme(o) {
   try {
+    info(`Fetching README for ${o.owner}/${o.repo}`);
     const r = await github(`/repos/${o.owner}/${o.repo}/readme`);
     let c = Buffer.from(r.content, "base64").toString("utf8");
     c = rewriteUrls(c, o);
+    c = stripBadges(c);
     return truncate(c);
-  } catch {
+  } catch (e) {
+    warn(`README not found for ${o.owner}/${o.repo}`);
     return null;
   }
 }
 
 async function fetchPullRequestCount(owner, repo) {
+  info(`Counting pull requests for ${owner}/${repo}`);
   let count = 0;
   let page = 1;
   while (true) {
@@ -113,6 +146,7 @@ async function fetchPullRequestCount(owner, repo) {
 }
 
 async function main() {
+  info("Starting metadata fetch");
   const metadata = readJson(METADATA_PATH);
   ensureDir(README_DIR);
 
@@ -121,13 +155,15 @@ async function main() {
   const today = new Date().toISOString().slice(0, 10);
 
   for (const tool of metadata.tools) {
+    info(`Processing tool: ${tool.id}`);
     const repo = parseRepo(tool.repo);
     if (!repo) continue;
 
     let repoData;
     try {
       repoData = await github(`/repos/${repo.owner}/${repo.repo}`);
-    } catch {
+    } catch (e) {
+      warn(`Failed to fetch repo: ${repo.owner}/${repo.repo}`);
       continue;
     }
 
@@ -141,10 +177,11 @@ async function main() {
     let pullRequests = 0;
     try {
       pullRequests = await fetchPullRequestCount(repo.owner, repo.repo);
-    } catch {}
+    } catch {
+      warn(`Failed to fetch PR count for ${repo.owner}/${repo.repo}`);
+    }
 
     starsMap[tool.id] = stars;
-
     statsMap[tool.id] = {
       forks,
       issues,
@@ -156,25 +193,22 @@ async function main() {
     const readme = await fetchReadme({ ...repo, branch });
     const content = readme || `# ${repo.repo}\n\nNo README found\n`;
     fs.writeFileSync(path.join(README_DIR, `${tool.id}.md`), content);
+    info(`Saved README for tool ${tool.id}`);
   }
 
   fs.writeFileSync(
     STARS_PATH,
-    JSON.stringify(
-      { lastUpdated: today, stars: starsMap },
-      null,
-      2
-    )
+    JSON.stringify({ lastUpdated: today, stars: starsMap }, null, 2)
   );
+  info("Stars metadata written");
 
   fs.writeFileSync(
     STATS_PATH,
-    JSON.stringify(
-      { lastUpdated: today, stats: statsMap },
-      null,
-      2
-    )
+    JSON.stringify({ lastUpdated: today, stats: statsMap }, null, 2)
   );
+  info("Repo stats metadata written");
+
+  info("Metadata fetch completed successfully");
 }
 
 process.on("unhandledRejection", e => {
