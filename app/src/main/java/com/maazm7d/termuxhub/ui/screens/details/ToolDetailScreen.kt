@@ -28,6 +28,7 @@ import com.mikepenz.markdown.m3.markdownTypography
 import com.mikepenz.markdown.coil3.Coil3ImageTransformerImpl
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.shape.RoundedCornerShape
 
 @Composable
 fun ToolDetailScreen(
