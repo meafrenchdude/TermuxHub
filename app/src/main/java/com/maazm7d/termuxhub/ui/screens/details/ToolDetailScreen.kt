@@ -100,11 +100,15 @@ private fun ToolDetailContent(
 
                 Spacer(modifier = Modifier.height(12.dp))
 
-                Card(
+                OutlinedCard(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(12.dp),
-                    elevation = CardDefaults.cardElevation(8.dp),
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+                    colors = CardDefaults.outlinedCardColors(
+                        containerColor = MaterialTheme.colorScheme.surface
+                    ),
+                    border = CardDefaults.outlinedCardBorder(
+                        borderColor = MaterialTheme.colorScheme.outlineVariant
+                    )
                 ) {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
@@ -140,17 +144,9 @@ private fun ToolDetailContent(
                     }
                 }
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(24.dp))
 
-                HorizontalDivider(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 8.dp),
-                    color = MaterialTheme.colorScheme.outlineVariant
-                )
-
-                Spacer(modifier = Modifier.height(16.dp))
-
+                // Markdown content (no container, just the content)
                 if (tool.readme.isNotBlank()) {
                     Markdown(
                         content = tool.readme,
@@ -172,21 +168,17 @@ private fun ToolDetailContent(
                     Spacer(modifier = Modifier.height(24.dp))
                 }
 
-                HorizontalDivider(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 8.dp),
-                    color = MaterialTheme.colorScheme.outlineVariant
-                )
-
-                Spacer(modifier = Modifier.height(16.dp))
-
+                // Outlined container for installation commands
                 if (tool.installCommands.isNotBlank()) {
-                    Card(
+                    OutlinedCard(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(12.dp),
-                        elevation = CardDefaults.cardElevation(6.dp),
-                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+                        colors = CardDefaults.outlinedCardColors(
+                            containerColor = MaterialTheme.colorScheme.surface
+                        ),
+                        border = CardDefaults.outlinedCardBorder(
+                            borderColor = MaterialTheme.colorScheme.outlineVariant
+                        )
                     ) {
                         Column(modifier = Modifier.padding(16.dp)) {
                             Text(
@@ -194,7 +186,7 @@ private fun ToolDetailContent(
                                 style = MaterialTheme.typography.titleMedium
                             )
 
-                            Spacer(modifier = Modifier.height(8.dp))
+                            Spacer(modifier = Modifier.height(12.dp))
 
                             tool.installCommands
                                 .lines()
@@ -208,14 +200,17 @@ private fun ToolDetailContent(
                     Spacer(modifier = Modifier.height(24.dp))
                 }
 
+                // Action buttons (no container needed)
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-
                     OutlinedButton(
                         onClick = { tool.repoUrl?.let { uriHandler.openUri(it) } },
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.weight(1f),
+                        border = ButtonDefaults.outlinedButtonBorder.copy(
+                            color = MaterialTheme.colorScheme.outlineVariant
+                        )
                     ) {
                         Icon(
                             imageVector = Icons.Filled.Code,
@@ -228,7 +223,10 @@ private fun ToolDetailContent(
 
                     OutlinedButton(
                         onClick = { tool.repoUrl?.let { uriHandler.openUri("$it/issues") } },
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.weight(1f),
+                        border = ButtonDefaults.outlinedButtonBorder.copy(
+                            color = MaterialTheme.colorScheme.outlineVariant
+                        )
                     ) {
                         Icon(
                             imageVector = Icons.Filled.BugReport,
