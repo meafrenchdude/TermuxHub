@@ -17,13 +17,15 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import dev.jeziellago.compose.markdowntext.MarkdownText
 import com.maazm7d.termuxhub.ui.components.DetailScreenThumbnail
 import com.maazm7d.termuxhub.ui.components.shimmer
 import com.maazm7d.termuxhub.ui.components.ToolRepoBadgesRow
 import com.maazm7d.termuxhub.domain.model.ToolDetails
 import kotlinx.coroutines.launch
 import androidx.compose.foundation.text.selection.SelectionContainer
+import com.mikepenz.markdown.m3.Markdown
+import com.mikepenz.markdown.m3.markdownTypography
+import com.mikepenz.markdown.coil3.Coil3ImageTransformerImpl
 
 @Composable
 fun ToolDetailScreen(
@@ -145,11 +147,13 @@ Spacer(modifier = Modifier.height(16.dp))
            
             if (tool.readme.isNotBlank()) {
                 
-     MarkdownText(
-    markdown = tool.readme,
+     Markdown(
+    content = tool.readme,
     modifier = Modifier.fillMaxWidth(),
-    style = MaterialTheme.typography.bodyMedium,
-    isTextSelectable = true
+    typography = markdownTypography(
+        text = MaterialTheme.typography.bodySmall
+    ),
+    imageTransformer = Coil3ImageTransformerImpl
 )
                 Spacer(modifier = Modifier.height(24.dp))
             }

@@ -76,7 +76,7 @@ hilt {
 }
 
 dependencies {
-    implementation(platform("androidx.compose:compose-bom:2024.02.00"))
+    implementation(platform("androidx.compose:compose-bom:2026.01.00"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
@@ -85,7 +85,6 @@ dependencies {
 
     implementation("androidx.navigation:navigation-compose:2.8.0")
     implementation("com.google.android.material:material:1.13.0")
-    implementation("com.google.accompanist:accompanist-systemuicontroller:0.34.0")
 
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
@@ -102,8 +101,11 @@ dependencies {
     implementation("com.squareup.moshi:moshi-kotlin:1.15.1")
     ksp("com.squareup.moshi:moshi-kotlin-codegen:1.15.1")
 
-    implementation("com.github.jeziellago:compose-markdown:0.5.8")
-    implementation("io.coil-kt:coil-compose:2.6.0")
+    implementation("com.mikepenz:multiplatform-markdown-renderer:0.39.1")
+    implementation("com.mikepenz:multiplatform-markdown-renderer-m3:0.39.1")
+    implementation("com.mikepenz:multiplatform-markdown-renderer-coil3:0.39.1")
+    implementation("io.coil-kt.coil3:coil-compose:3.3.0")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.3.0")
 
     implementation("androidx.room:room-runtime:2.7.0")
     implementation("androidx.room:room-ktx:2.7.0")

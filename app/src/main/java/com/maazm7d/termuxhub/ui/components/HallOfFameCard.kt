@@ -13,9 +13,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
+import coil3.compose.AsyncImage
+import coil3.compose.SubcomposeAsyncImage
 import com.maazm7d.termuxhub.domain.model.HallOfFameMember
-import dev.jeziellago.compose.markdowntext.MarkdownText
+import com.mikepenz.markdown.m3.Markdown
+import com.mikepenz.markdown.m3.markdownTypography
+import com.mikepenz.markdown.coil3.Coil3ImageTransformerImpl
 
 @Composable
 fun HallOfFameCard(
@@ -68,10 +71,13 @@ fun HallOfFameCard(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            MarkdownText(
-                markdown = member.contribution,
-                style = MaterialTheme.typography.bodyMedium
-            )
+            Markdown(
+    content = member.contribution,
+    typography = markdownTypography(
+        text = MaterialTheme.typography.bodyMedium
+    ),
+    imageTransformer = Coil3ImageTransformerImpl
+)
 
             Spacer(modifier = Modifier.height(12.dp))
 
