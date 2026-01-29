@@ -28,14 +28,14 @@ fun WhatsNewScreen() {
     var textLayoutResult by remember { mutableStateOf<TextLayoutResult?>(null) }
 
     val whatsNewItems = listOf(
-        "A smoother and faster Tool Detail experience",
-        "Instant visual feedback with shimmer loading",
-        "Tool thumbnails showcased prominently for clarity",
-        "Improved image loading for consistent performance",
-        "True AMOLED dark mode with deeper blacks",
-        "Material You themed app icon",
-        "Seamless sharing with deep links",
-        "Cleaner and faster open-in experience"
+	"- App link support added — open tool details directly from a single shared link",
+	"- Redesigned Tool Detail Screen with cleaner layout, better spacing, and smoother scrolling",
+	"- Repository stats badges (stars, forks, etc.) added for quick insights",
+	"- Migrated markdown rendering to multiplatform-markdown-renderer for improved compatibility and readability",
+	"- Text selection enabled in the tool detail screen",
+	"- Updated cards to a modern Outlined Material 3 style",
+	"- Enhanced Saved Screen layout for a cleaner look",
+	"- Refined typography across key screens for improved visual consistency"
     )
 
     val feedbackText = buildAnnotatedString {
@@ -106,7 +106,7 @@ fun WhatsNewScreen() {
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "Version 2.1.1  •  Code 2",
+                text = "Version 3.2.4",
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.75f),
                 textAlign = TextAlign.Center

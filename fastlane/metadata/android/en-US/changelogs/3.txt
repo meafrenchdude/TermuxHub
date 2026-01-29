@@ -1,0 +1,8 @@
+• App link support added — open tool details directly from a single shared link.
+• Redesigned Tool Detail Screen with cleaner layout, better spacing, and smoother scrolling.
+• Repository stats badges (stars, forks, etc.) added for quick insights.
+• Migrated markdown rendering to multiplatform-markdown-renderer for improved compatibility and readability.
+• Text selection enabled in the tool detail screen.
+• Updated cards to a modern Outlined Material 3 style.
+• Enhanced Saved Screen layout for a cleaner look.
+• Refined typography across key screens for improved visual consistency.
