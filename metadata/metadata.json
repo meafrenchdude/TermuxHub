@@ -1439,6 +1439,66 @@
       "author": "BDhackers009",
       "requireRoot": false,
       "publishedAt": "31-01-2026"
+    },
+    {
+      "id": "0121",
+      "name": "SIGIT",
+      "description": "A modular Python-based OSINT command-line toolkit for reconnaissance, security testing, and digital forensics.",
+      "category": "OSINT & Recon",
+      "install": "pip install sigit",
+      "thumbnail": "",
+      "repo": "https://github.com/termuxhackers-id/SIGIT",
+      "author": "termuxhackers-id",
+      "requireRoot": false,
+      "publishedAt": "07-02-2026"
+    },
+    {
+      "id": "0122",
+      "name": "Cracker-Tool",
+      "description": "An all-in-one Python and Bash based Termux hacking and penetration testing toolkit.",
+      "category": "Exploitation Tools",
+      "install": "apt update -y\napt upgrade -y\npkg install git -y\npkg install python -y\ngit clone https://github.com/cracker911181/Cracker-Tool\ncd Cracker-Tool\npython cracker-main.py",
+      "thumbnail": "",
+      "repo": "https://github.com/cracker911181/Cracker-Tool",
+      "author": "cracker911181",
+      "requireRoot": false,
+      "publishedAt": "07-02-2026"
+    },
+    {
+      "id": "0123",
+      "name": "Ransomware",
+      "description": "A collection of ransomware scripts intended for research, testing, and educational purposes only.",
+      "category": "Exploitation Tools",
+      "install": "git clone https://github.com/Err0r-ICA/Ransomware\ncd Ransomware\npython3 Ransomware",
+      "thumbnail": "",
+      "repo": "https://github.com/Err0r-ICA/Ransomware",
+      "author": "Err0r-ICA",
+      "requireRoot": false,
+      "publishedAt": "07-02-2026"
+    },
+    {
+      "id": "0124",
+      "name": "seeu",
+      "description": "A bash-based Termux tool for camera phishing attacks using port forwarding and Google detection bypass techniques.",
+      "category": "Social Engineering",
+      "install": "apt-get update -y\napt-get upgrade -y\ntermux-setup-storage\npkg install curl -y\npkg install wget -y\npkg install git -y\npkg install php -y\ngit clone https://github.com/noob-hackers/seeu\ncd seeu\nbash seeu.sh",
+      "thumbnail": "",
+      "repo": "https://github.com/noob-hackers/seeu",
+      "author": "noob-hackers",
+      "requireRoot": false,
+      "publishedAt": "07-02-2026"
+    },
+    {
+      "id": "0125",
+      "name": "MBomb",
+      "description": "A Python-based Gmail mail bombing tool that sends a large number of emails using Gmail SMTP.",
+      "category": "Brute Force",
+      "install": "pkg install python2 -y\npkg install git -y\ngit clone https://github.com/palahsu/MBomb.git\ncd MBomb\npython2 MBomb.py",
+      "thumbnail": "",
+      "repo": "https://github.com/palahsu/MBomb",
+      "author": "palahsu",
+      "requireRoot": false,
+      "publishedAt": "07-02-2026"
     }
   ]
 }
