@@ -1499,6 +1499,66 @@
       "author": "palahsu",
       "requireRoot": false,
       "publishedAt": "07-02-2026"
+    },
+    {
+      "id": "0126",
+      "name": "MiUnlockTool",
+      "description": "Retrieve encryptData token required to unlock Xiaomi device bootloaders.",
+      "category": "Android Modding",
+      "install": "curl -sS https://raw.githubusercontent.com/offici5l/MiUnlockTool/main/.install | bash",
+      "thumbnail": "",
+      "repo": "https://github.com/offici5l/MiUnlockTool",
+      "author": "offici5l",
+      "requireRoot": false,
+      "publishedAt": "08-02-2026"
+    },
+    {
+      "id": "0127",
+      "name": "MiTool",
+      "description": "Unlock bootloaders and flash ROMs on Xiaomi devices directly from Termux without a PC.",
+      "category": "Android Modding",
+      "install": "termux-setup-storage\ncurl -sS https://raw.githubusercontent.com/offici5l/MiTool/master/install.sh | bash",
+      "thumbnail": "",
+      "repo": "https://github.com/offici5l/MiTool",
+      "author": "offici5l",
+      "requireRoot": false,
+      "publishedAt": "08-02-2026"
+    },
+    {
+      "id": "0128",
+      "name": "mtkclient",
+      "description": "Mediatek exploitation tool for reading and writing flash and performing low level device operations.",
+      "category": "Android Modding",
+      "install": "git clone https://github.com/bkerler/mtkclient\ncd mtkclient\npip install -r requirements.txt",
+      "thumbnail": "",
+      "repo": "https://github.com/bkerler/mtkclient",
+      "author": "bkerler",
+      "requireRoot": false,
+      "publishedAt": "08-02-2026"
+    },
+    {
+      "id": "0129",
+      "name": "termux-adb",
+      "description": "Run adb and fastboot in Termux without requiring root permissions.",
+      "category": "Utilities & Dev",
+      "install": "curl -s https://raw.githubusercontent.com/nohajc/termux-adb/master/install.sh | bash",
+      "thumbnail": "",
+      "repo": "https://github.com/nohajc/termux-adb",
+      "author": "nohajc",
+      "requireRoot": false,
+      "publishedAt": "08-02-2026"
+    },
+    {
+      "id": "0130",
+      "name": "Termux-Root-Recovery-Tool",
+      "description": "Automated Termux tool for flashing recoveries, images, GSI ROMs, and fastboot ROMs on bootloader unlocked devices.",
+      "category": "Android Modding",
+      "install": "git clone https://github.com/Ishu43642/Termux-Root-Recovery-Tool.git\ncd Termux-Root-Recovery-Tool\nchmod -R +x .",
+      "thumbnail": "",
+      "repo": "https://github.com/Ishu43642/Termux-Root-Recovery-Tool",
+      "author": "Ishu43642",
+      "requireRoot": false,
+      "publishedAt": "08-02-2026"
     }
   ]
 }
