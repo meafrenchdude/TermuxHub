@@ -6,10 +6,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -17,9 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
-import androidx.compose.ui.input.nestedscroll.NestedScrollSource
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -33,26 +27,9 @@ fun TermuxHubAppNav(
     val navController = rememberNavController()
 
     val backStackEntry by navController.currentBackStackEntryAsState()
-    val currentDestination: NavDestination? = backStackEntry?.destination
+    val currentDestination = backStackEntry?.destination
 
     var deepLinkHandled by remember { mutableStateOf(false) }
-    var isBottomBarVisible by remember { mutableStateOf(true) }
-
-    // Detect scroll direction
-    val scrollBehavior = remember {
-        object : NestedScrollConnection {
-            override fun onPreScroll(
-                available: androidx.compose.ui.geometry.Offset,
-                source: NestedScrollSource
-            ): androidx.compose.ui.geometry.Offset {
-                when {
-                    available.y < -5f -> isBottomBarVisible = false // scroll down
-                    available.y > 5f -> isBottomBarVisible = true  // scroll up
-                }
-                return androidx.compose.ui.geometry.Offset.Zero
-            }
-        }
-    }
 
     LaunchedEffect(deepLinkToolId) {
         if (deepLinkToolId.isNullOrBlank()) return@LaunchedEffect
@@ -73,27 +50,24 @@ fun TermuxHubAppNav(
         else -> true
     }
 
-    Scaffold(
-        containerColor = Color.Transparent
-    ) { paddingValues ->
+    Scaffold(containerColor = Color.Transparent) { paddingValues ->
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .nestedScroll(scrollBehavior)
         ) {
             AppNavHost(
-    navController = navController,
-    modifier = Modifier.fillMaxSize()
-)
+                navController = navController,
+                modifier = Modifier.fillMaxSize()
+            )
 
             AnimatedVisibility(
-                visible = showBottomBar && isBottomBarVisible,
+                visible = showBottomBar,
                 enter = slideInVertically { it / 2 } + fadeIn(),
                 exit = slideOutVertically { it / 2 } + fadeOut(),
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
-                    .padding(horizontal = 16.dp, vertical = 20.dp)
+                    .padding(horizontal = 16.dp, vertical = 16.dp)
             ) {
                 BottomPillNavBar(
                     currentDestination = currentDestination,
@@ -118,12 +92,13 @@ private fun BottomPillNavBar(
     onNavigate: (String) -> Unit
 ) {
     Surface(
-        shape = RoundedCornerShape(32.dp),
+        shape = RoundedCornerShape(24.dp),
         color = MaterialTheme.colorScheme.surface,
-        tonalElevation = 6.dp,
-        shadowElevation = 10.dp
+        tonalElevation = 4.dp,
+        shadowElevation = 6.dp
     ) {
         NavigationBar(
+            modifier = Modifier.height(48.dp),
             containerColor = Color.Transparent,
             tonalElevation = 0.dp
         ) {
@@ -133,13 +108,8 @@ private fun BottomPillNavBar(
                     ?.any { it.route == item.route } == true
 
                 val scale by animateFloatAsState(
-                    targetValue = if (selected) 1.15f else 1f,
+                    targetValue = if (selected) 1.08f else 1f,
                     label = "scale"
-                )
-
-                val alpha by animateFloatAsState(
-                    targetValue = if (selected) 1f else 0.6f,
-                    label = "alpha"
                 )
 
                 NavigationBarItem(
@@ -150,19 +120,21 @@ private fun BottomPillNavBar(
                             imageVector = item.icon,
                             contentDescription = null,
                             modifier = Modifier
-                                .size(if (item.isHome) 26.dp else 22.dp)
+                                .size(if (item.isHome) 22.dp else 20.dp)
                                 .graphicsLayer {
                                     scaleX = scale
                                     scaleY = scale
-                                    this.alpha = alpha
                                 }
                         )
                     },
                     label = null,
+                    alwaysShowLabel = false,
                     colors = NavigationBarItemDefaults.colors(
                         indicatorColor = Color.Transparent,
                         selectedIconColor = MaterialTheme.colorScheme.primary,
-                        unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant
+                        unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(
+                            alpha = 0.7f
+                        )
                     )
                 )
             }
