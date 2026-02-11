@@ -1559,6 +1559,66 @@
       "author": "Ishu43642",
       "requireRoot": false,
       "publishedAt": "08-02-2026"
+    },
+    {
+      "id": "0131",
+      "name": "ApkBuilder",
+      "description": "A lightweight Android build toolkit for Termux that compiles and signs APKs without Android Studio.",
+      "category": "Android Modding",
+      "install": "git clone https://github.com/silvadev13/ApkBuilder\ncd ApkBuilder\npkg install -y openjdk-17 kotlinc aapt2 d8 apksigner",
+      "thumbnail": "",
+      "repo": "https://github.com/silvadev13/ApkBuilder",
+      "author": "silvadev13",
+      "requireRoot": false,
+      "publishedAt": "11-02-2026"
+    },
+    {
+      "id": "0132",
+      "name": "PassGen",
+      "description": "A targeted password dictionary attack tool for generating and testing password combinations.",
+      "category": "Brute Force",
+      "install": "git clone https://github.com/Broham/PassGen\ncd PassGen\npip install -r requirements.txt",
+      "thumbnail": "",
+      "repo": "https://github.com/Broham/PassGen",
+      "author": "Broham",
+      "requireRoot": false,
+      "publishedAt": "11-02-2026"
+    },
+    {
+      "id": "0133",
+      "name": "LazyFiglet",
+      "description": "A simple bash script to generate and display all Figlet fonts in one click.",
+      "category": "Utilities & Dev",
+      "install": "git clone https://github.com/TechnicalMujeeb/LazyFiglet\ncd LazyFiglet\nchmod +x install.sh\nsh install.sh",
+      "thumbnail": "",
+      "repo": "https://github.com/TechnicalMujeeb/LazyFiglet",
+      "author": "TechnicalMujeeb",
+      "requireRoot": false,
+      "publishedAt": "11-02-2026"
+    },
+    {
+      "id": "0134",
+      "name": "speedtest-cli",
+      "description": "A command line interface for testing internet bandwidth using speedtest.net.",
+      "category": "Network Security",
+      "install": "git clone https://github.com/sivel/speedtest-cli\ncd speedtest-cli\npip install .",
+      "thumbnail": "",
+      "repo": "https://github.com/sivel/speedtest-cli",
+      "author": "sivel",
+      "requireRoot": false,
+      "publishedAt": "11-02-2026"
+    },
+    {
+      "id": "0135",
+      "name": "termux-nethunter",
+      "description": "A script to install Kali NetHunter Rootless on Android using Termux.",
+      "category": "Android Modding",
+      "install": "git clone https://github.com/jorexdeveloper/termux-nethunter\ncd termux-nethunter\npkg update -y && pkg upgrade -y\npkg install -y curl\nbash install-nethunter.sh",
+      "thumbnail": "",
+      "repo": "https://github.com/jorexdeveloper/termux-nethunter",
+      "author": "jorexdeveloper",
+      "requireRoot": false,
+      "publishedAt": "11-02-2026"
     }
   ]
 }
