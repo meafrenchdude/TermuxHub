@@ -92,13 +92,16 @@ private fun BottomPillNavBar(
     onNavigate: (String) -> Unit
 ) {
     Surface(
-        shape = RoundedCornerShape(24.dp),
+        shape = RoundedCornerShape(28.dp),
         color = MaterialTheme.colorScheme.surface,
-        tonalElevation = 0.dp,
-        shadowElevation = 6.dp
+        shadowElevation = 6.dp,
+        modifier = Modifier.wrapContentWidth() 
     ) {
         NavigationBar(
-            modifier = Modifier.height(48.dp),
+            modifier = Modifier
+                .height(48.dp)
+                .wrapContentWidth()               
+                .padding(horizontal = 8.dp),     
             containerColor = Color.Transparent,
             tonalElevation = 0.dp
         ) {
