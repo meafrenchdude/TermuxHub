@@ -94,7 +94,7 @@ private fun BottomPillNavBar(
     Surface(
         shape = RoundedCornerShape(24.dp),
         color = MaterialTheme.colorScheme.surface,
-        tonalElevation = 4.dp,
+        tonalElevation = 0.dp,
         shadowElevation = 6.dp
     ) {
         NavigationBar(
