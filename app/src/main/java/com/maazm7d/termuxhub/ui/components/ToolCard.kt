@@ -51,9 +51,11 @@ fun ToolCard(
             .fillMaxWidth()
             .padding(horizontal = 12.dp, vertical = 8.dp)
             .clickable { onOpenDetails(tool.id) },
-        shape = RoundedCornerShape(12.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+        shape = RoundedCornerShape(16.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        colors = CardDefaults.cardColors(
+        containerColor = MaterialTheme.colorScheme.surface
+        )
     ) {
         Column {
             var imageLoading by remember { mutableStateOf(true) }
