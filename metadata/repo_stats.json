@@ -1,15 +1,15 @@
 {
-  "lastUpdated": "2026-02-13",
+  "lastUpdated": "2026-02-14",
   "stats": {
     "0001": {
-      "forks": 2106,
+      "forks": 2107,
       "issues": 19,
       "pullRequests": 10,
       "license": "MIT",
       "lastUpdated": 1746643035000
     },
     "0002": {
-      "forks": 390,
+      "forks": 391,
       "issues": 17,
       "pullRequests": 8,
       "license": "GPL-3.0",
@@ -93,14 +93,14 @@
       "lastUpdated": 1746694836000
     },
     "0014": {
-      "forks": 5794,
-      "issues": 395,
+      "forks": 5797,
+      "issues": 397,
       "pullRequests": 66,
       "license": "GPL-3.0",
       "lastUpdated": 1724228082000
     },
     "0015": {
-      "forks": 1422,
+      "forks": 1421,
       "issues": 6,
       "pullRequests": 2,
       "license": "BSD-3-Clause",
@@ -195,7 +195,7 @@
       "issues": 0,
       "pullRequests": 0,
       "license": "NOASSERTION",
-      "lastUpdated": 1770874688000
+      "lastUpdated": 1771014371000
     },
     "0030": {
       "forks": 7,
@@ -212,7 +212,7 @@
       "lastUpdated": 1749544422000
     },
     "0032": {
-      "forks": 917,
+      "forks": 918,
       "issues": 8,
       "pullRequests": 1,
       "license": "NOASSERTION",
@@ -447,7 +447,7 @@
       "issues": 197,
       "pullRequests": 117,
       "license": "MIT",
-      "lastUpdated": 1770874623000
+      "lastUpdated": 1770960912000
     },
     "0070": {
       "forks": 118,
@@ -478,7 +478,7 @@
       "lastUpdated": 1767042552000
     },
     "0074": {
-      "forks": 209,
+      "forks": 210,
       "issues": 28,
       "pullRequests": 4,
       "license": "MIT",
@@ -513,7 +513,7 @@
       "lastUpdated": 1531263370000
     },
     "0079": {
-      "forks": 409,
+      "forks": 410,
       "issues": 25,
       "pullRequests": 3,
       "license": "MIT",
@@ -562,7 +562,7 @@
       "lastUpdated": 1745657226000
     },
     "0086": {
-      "forks": 883,
+      "forks": 881,
       "issues": 52,
       "pullRequests": 9,
       "license": null,
@@ -576,7 +576,7 @@
       "lastUpdated": 1726930280000
     },
     "0088": {
-      "forks": 384,
+      "forks": 383,
       "issues": 0,
       "pullRequests": 0,
       "license": "GPL-3.0",
@@ -584,7 +584,7 @@
     },
     "0089": {
       "forks": 170,
-      "issues": 10,
+      "issues": 11,
       "pullRequests": 1,
       "license": "MIT",
       "lastUpdated": 1702103272000
@@ -625,7 +625,7 @@
       "lastUpdated": 1757486287000
     },
     "0095": {
-      "forks": 107,
+      "forks": 108,
       "issues": 22,
       "pullRequests": 1,
       "license": null,
@@ -653,14 +653,14 @@
       "lastUpdated": 1719033890000
     },
     "0099": {
-      "forks": 125,
+      "forks": 124,
       "issues": 33,
       "pullRequests": 5,
       "license": null,
       "lastUpdated": 1701507256000
     },
     "0100": {
-      "forks": 153,
+      "forks": 152,
       "issues": 41,
       "pullRequests": 4,
       "license": "MIT",
@@ -688,7 +688,7 @@
       "lastUpdated": 1763139917000
     },
     "0104": {
-      "forks": 427,
+      "forks": 426,
       "issues": 35,
       "pullRequests": 6,
       "license": "GPL-3.0",
@@ -716,14 +716,14 @@
       "lastUpdated": 1757922176000
     },
     "0108": {
-      "forks": 1827,
+      "forks": 1826,
       "issues": 0,
       "pullRequests": 0,
       "license": "NOASSERTION",
       "lastUpdated": 1750275367000
     },
     "0109": {
-      "forks": 1238,
+      "forks": 1237,
       "issues": 217,
       "pullRequests": 39,
       "license": "GPL-3.0",
@@ -772,11 +772,11 @@
       "lastUpdated": 1623507566000
     },
     "0116": {
-      "forks": 254,
+      "forks": 253,
       "issues": 1,
       "pullRequests": 0,
       "license": "GPL-3.0",
-      "lastUpdated": 1770901835000
+      "lastUpdated": 1770992815000
     },
     "0117": {
       "forks": 331,
@@ -821,7 +821,7 @@
       "lastUpdated": 1703349597000
     },
     "0123": {
-      "forks": 96,
+      "forks": 97,
       "issues": 11,
       "pullRequests": 2,
       "license": "MIT",
@@ -842,7 +842,7 @@
       "lastUpdated": 1688080589000
     },
     "0126": {
-      "forks": 108,
+      "forks": 109,
       "issues": 11,
       "pullRequests": 0,
       "license": "Apache-2.0",
@@ -856,9 +856,9 @@
       "lastUpdated": 1767368551000
     },
     "0128": {
-      "forks": 40,
-      "issues": 13,
-      "pullRequests": 0,
+      "forks": 41,
+      "issues": 16,
+      "pullRequests": 1,
       "license": "GPL-3.0",
       "lastUpdated": 1770910256000
     },
@@ -877,8 +877,8 @@
       "lastUpdated": 1769443000000
     },
     "0131": {
-      "forks": 0,
-      "issues": 0,
+      "forks": 1,
+      "issues": 1,
       "pullRequests": 0,
       "license": "MIT",
       "lastUpdated": 1770758093000
