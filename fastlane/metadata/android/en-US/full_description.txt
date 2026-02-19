@@ -1,18 +1,46 @@
-<p align="center">
-  Android app indexing Termux tools via a metadata-driven pipeline.
+<p>
+  <strong>Termux Hub</strong> is a lightweight, open-source Android application that indexes and organizes tools designed for use with <strong>Termux</strong>.
+  It provides a clean, searchable catalog of community tools using a transparent, metadata-driven data pipeline.
 </p>
 <p>
-  Termux Hub catalogs Termux tools with a reproducible, transparent workflow, storing validated data locally and updating stars and READMEs daily at 00:00 UTC.
+  The app focuses on reproducibility and reliability. All tool information is processed automatically from a public GitHub repository,
+  validated, and stored locally on your device. Once synced, the local database becomes the single source of truth,
+  ensuring fast access even when offline.
 </p>
+
+<h2>Key features</h2>
+<ul>
+  <li>Browse and search curated Termux tools by category</li>
+  <li>View detailed tool information, installation commands, and repositories</li>
+  <li>Daily updates of GitHub star counts and README content (00:00 UTC)</li>
+  <li>Offline-first design with local Room database storage</li>
+  <li>No trackers, no analytics, no ads</li>
+</ul>
+
 <h2>How it works</h2>
 <p>
-  Fetches static GitHub metadata, processes tools, stars, and READMEs independently, stores them in a local Room database, and falls back to cached or bundled data if syncing fails.
+  Termux Hub fetches static metadata from GitHub and processes tool data, star counts,
+  and README files independently. All validated data is stored in a local Room database.
+  If syncing fails, the app safely falls back to cached or bundled data.
 </p>
+
 <h2>Data sources</h2>
 <p>
-  All read-only data comes from <a href="https://github.com/maazm7d/TermuxHub">TermuxHub GitHub repo</a>, including tool metadata, stars, READMEs, thumbnails, and Hall of Fame entries.
+  All data is <strong>read-only</strong> and sourced from the public
+  <a href="https://github.com/maazm7d/TermuxHub">TermuxHub GitHub repository</a>.
+  This includes tool metadata, repositories, thumbnails, GitHub stars, READMEs,
+  and Hall of Fame entries.
 </p>
+
+<h2>Privacy</h2>
+<p>
+  Termux Hub does not collect personal data, does not require accounts,
+  and does not include tracking, analytics, or advertising libraries.
+</p>
+
 <h2>Contributing</h2>
 <p>
-  To add or index a tool, see <a href="https://github.com/maazm7d/TermuxHub/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>.
+  Anyone can help improve the catalog. To add or update a tool,
+  please see the contribution guidelines in
+  <a href="https://github.com/maazm7d/TermuxHub/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>.
 </p>

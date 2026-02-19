@@ -1,11 +1,12 @@
 package com.maazm7d.termuxhub
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.*
 import androidx.core.view.WindowCompat
 import com.maazm7d.termuxhub.navigation.TermuxHubAppNav
 import com.maazm7d.termuxhub.ui.theme.TermuxHubTheme
@@ -14,33 +15,55 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
+    private val deepLinkToolIdState = mutableStateOf<String?>(null)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        val toolIdFromLink = intent?.data?.let { uri ->
-    when (uri.scheme) {
-        "termuxhub" -> uri.lastPathSegment
-        "https" -> uri.fragment
-        else -> null
-    }
-}
+        deepLinkToolIdState.value = extractToolId(intent)
 
         setContent {
-            val darkTheme = isSystemInDarkTheme()
+            AppContent()
+        }
+    }
 
-            SideEffect {
-                WindowCompat.getInsetsController(window, window.decorView).apply {
-                    isAppearanceLightStatusBars = !darkTheme
-                    isAppearanceLightNavigationBars = !darkTheme
-                }
-            }
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
 
-            TermuxHubTheme(darkTheme = darkTheme) {
-                TermuxHubAppNav(
-                    deepLinkToolId = toolIdFromLink
-                )
+        deepLinkToolIdState.value = extractToolId(intent)
+    }
+
+    @Composable
+    private fun AppContent() {
+        val darkTheme = isSystemInDarkTheme()
+        val deepLinkToolId by deepLinkToolIdState
+
+        SideEffect {
+            WindowCompat.getInsetsController(window, window.decorView).apply {
+                isAppearanceLightStatusBars = !darkTheme
+                isAppearanceLightNavigationBars = !darkTheme
             }
         }
+
+        TermuxHubTheme(darkTheme = darkTheme) {
+            TermuxHubAppNav(
+                deepLinkToolId = deepLinkToolId
+            )
+        }
+    }
+
+    private fun extractToolId(intent: Intent?): String? {
+        val data = intent?.data ?: return null
+
+        if (
+            data.scheme == "https" &&
+            data.host == "maazm7d.github.io" &&
+            data.path?.startsWith("/termuxhub/tool/") == true
+        ) {
+            return data.lastPathSegment
+        }
+
+        return null
     }
 }

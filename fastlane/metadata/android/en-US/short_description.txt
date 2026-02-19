@@ -1,1 +1,1 @@
-A lightweight Android app that indexes Termux tools from GitHub metadata.
+A lightweight Android app that indexes Termux tools from metadata.

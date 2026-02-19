@@ -15,5 +15,10 @@ fun ToolEntity.toDomain() = Tool(
     thumbnail = thumbnail,
     updatedAt = updatedAt,
     isFavorite = isFavorite,
-    publishedAt = publishedAt
+    publishedAt = publishedAt,
+    forks = forks,
+    issues = issues,
+    pullRequests = pullRequests,
+    license = license,
+    stars = stars
 )

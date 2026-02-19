@@ -21,7 +21,8 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
+import coil3.compose.AsyncImage
+import coil3.compose.SubcomposeAsyncImage
 import com.maazm7d.termuxhub.domain.model.Tool
 import com.maazm7d.termuxhub.ui.components.ToolShare
 
@@ -50,9 +51,11 @@ fun ToolCard(
             .fillMaxWidth()
             .padding(horizontal = 12.dp, vertical = 8.dp)
             .clickable { onOpenDetails(tool.id) },
-        shape = RoundedCornerShape(12.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+        shape = RoundedCornerShape(16.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        colors = CardDefaults.cardColors(
+        containerColor = MaterialTheme.colorScheme.surface
+        )
     ) {
         Column {
             var imageLoading by remember { mutableStateOf(true) }

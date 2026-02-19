@@ -1,5 +1,9 @@
 package com.maazm7d.termuxhub.ui.screens.whatsnew
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -16,14 +20,26 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.delay
 
 @Composable
 fun WhatsNewScreen() {
     val uriHandler = LocalUriHandler.current
     var textLayoutResult by remember { mutableStateOf<TextLayoutResult?>(null) }
 
-    val annotatedText = buildAnnotatedString {
-        append("Got a wild idea? Drop it in the ")
+    val whatsNewItems = listOf(
+	"- App link support added — open tool details directly from a single shared link",
+	"- Redesigned Tool Detail Screen with cleaner layout, better spacing, and smoother scrolling",
+	"- Repository stats badges (stars, forks, etc.) added for quick insights",
+	"- Migrated markdown rendering to multiplatform-markdown-renderer for improved compatibility and readability",
+	"- Text selection enabled in the tool detail screen",
+	"- Updated cards to a modern Outlined Material 3 style",
+	"- Enhanced Saved Screen layout for a cleaner look",
+	"- Refined typography across key screens for improved visual consistency"
+    )
+
+    val feedbackText = buildAnnotatedString {
+        append("Have an idea or suggestion? Share it on the ")
 
         pushStringAnnotation(
             tag = "URL",
@@ -38,9 +54,7 @@ fun WhatsNewScreen() {
 
         pop()
 
-        append(
-            ".\nIf it makes sense (and doesn’t break everything), we might just build it."
-        )
+        append(". Your feedback helps shape what comes next.")
     }
 
     Box(
@@ -53,7 +67,6 @@ fun WhatsNewScreen() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            // Title
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
@@ -90,34 +103,90 @@ fun WhatsNewScreen() {
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f)
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
-Box(
-    modifier = Modifier
-        .fillMaxWidth()
-        .weight(1f),
-    contentAlignment = Alignment.Center
-) {
-    Text(
-        text = annotatedText,
-        style = MaterialTheme.typography.bodyMedium,
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
-        textAlign = TextAlign.Center,
-        onTextLayout = { textLayoutResult = it },
-        modifier = Modifier.pointerInput(Unit) {
-            detectTapGestures { offset ->
-                textLayoutResult
-                    ?.getOffsetForPosition(offset)
-                    ?.let { index ->
-                        annotatedText
-                            .getStringAnnotations("URL", index, index)
-                            .firstOrNull()
-                            ?.let { uriHandler.openUri(it.item) }
+            Text(
+                text = "Version 3.2.4",
+                style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.75f),
+                textAlign = TextAlign.Center
+            )
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+                contentAlignment = Alignment.Center
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    whatsNewItems.forEachIndexed { index, text ->
+                        AnimatedWhatsNewItem(
+                            text = text,
+                            delayMillis = index * 120
+                        )
+                        Spacer(modifier = Modifier.height(10.dp))
                     }
+                }
             }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            Text(
+                text = feedbackText,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                textAlign = TextAlign.Center,
+                onTextLayout = { textLayoutResult = it },
+                modifier = Modifier
+                    .padding(bottom = 8.dp)
+                    .pointerInput(Unit) {
+                        detectTapGestures { offset ->
+                            textLayoutResult
+                                ?.getOffsetForPosition(offset)
+                                ?.let { index ->
+                                    feedbackText
+                                        .getStringAnnotations("URL", index, index)
+                                        .firstOrNull()
+                                        ?.let { uriHandler.openUri(it.item) }
+                                }
+                        }
+                    }
+            )
         }
-    )
+    }
 }
-        }
+
+@Composable
+private fun AnimatedWhatsNewItem(
+    text: String,
+    delayMillis: Int
+) {
+    var visible by remember { mutableStateOf(false) }
+
+    LaunchedEffect(Unit) {
+        delay(delayMillis.toLong())
+        visible = true
+    }
+
+    AnimatedVisibility(
+        visible = visible,
+        enter = fadeIn(
+            animationSpec = tween(durationMillis = 400)
+        ) + slideInVertically(
+            initialOffsetY = { it / 6 },
+            animationSpec = tween(durationMillis = 400)
+        )
+    ) {
+        Text(
+            text = text,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(horizontal = 8.dp)
+        )
     }
 }
